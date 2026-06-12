@@ -1,0 +1,85 @@
+package com.utma.tams.travel_agency_management_system_api.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+// Destination POJO Class
+@Entity
+@Table(name = "destinations")
+public class Destination {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "guide_id")
+    private Long id;
+
+    @Column(nullable = false, length = 50)
+    @Size(max = 50, message = "City must be up to 50 characters long.")
+    @NotBlank(message = "City is mandatory.")
+    private String city;
+
+    @Column(nullable = false, length = 50)
+    @Size(max = 50, message = "Country must be up to 50 characters long.")
+    @NotBlank(message = "Country is mandatory.")
+    private String country;
+
+    @Column(length = 200, nullable = true)
+    @Size(max = 200, message = "Description must be up to 200 characters long.")
+    private String description;
+
+
+    public Destination(){
+
+    }
+
+    public Destination(String city, String country, String description){
+        this.city = city;
+        this.country = country;
+        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    @Override
+    public String toString() {
+        return "DestinationID: " + getId() + " | City: " + getCity() + " | Country: " + getCountry() + " | Description: " + getDescription();
+    }
+    
+}
