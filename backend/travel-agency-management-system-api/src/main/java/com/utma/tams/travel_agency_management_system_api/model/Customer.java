@@ -16,6 +16,7 @@ import jakarta.validation.constraints.Size;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "customer_id")
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -32,12 +33,12 @@ public class Customer {
     @Size(max = 15, message = "Phone number must be between 10 and 15 characters.")
     private String phone;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 100)
     @Email(message = "Invalid Email.")
     @Size(max = 100, message = "Email must be up to 100 characters.")
     private String email;
 
-    @Column(nullable = true)
+    @Column(nullable = true, length = 150)
     @Size(max = 150, message = "Address must be up to 150 characters.")
     private String address;
 
