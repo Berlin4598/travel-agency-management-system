@@ -10,6 +10,6 @@ public class TestController {
 
     @GetMapping
     public String test(){
-        return "TAMS BACKEND OK";
+        return "Travel Agency Management System BACKEND OK";
     }
 }
