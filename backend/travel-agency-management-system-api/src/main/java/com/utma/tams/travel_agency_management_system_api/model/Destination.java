@@ -1,10 +1,13 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,7 +19,7 @@ public class Destination {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "guide_id")
+    @Column(name = "destination_id")
     private Long id;
 
     @Column(nullable = false, length = 50)
@@ -33,6 +36,8 @@ public class Destination {
     @Size(max = 200, message = "Description must be up to 200 characters long.")
     private String description;
 
+    @OneToMany(mappedBy = "destination")
+    private List<TravelPackage> travelPackages;
 
     public Destination(){
 
