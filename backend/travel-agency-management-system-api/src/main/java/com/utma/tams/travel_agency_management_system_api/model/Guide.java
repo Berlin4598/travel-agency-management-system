@@ -1,15 +1,19 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+// Guide POJO Class
 @Entity
 @Table(name = "guides")
 public class Guide {
@@ -40,6 +44,9 @@ public class Guide {
 
     @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean available = true;
+    
+    @OneToMany(mappedBy = "guide")
+    private List<Reservation> reservations;
 
     public Guide() {
 
