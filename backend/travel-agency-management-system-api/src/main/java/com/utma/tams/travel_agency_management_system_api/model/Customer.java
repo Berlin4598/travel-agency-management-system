@@ -1,10 +1,13 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -41,6 +44,9 @@ public class Customer {
     @Column(nullable = true, length = 150)
     @Size(max = 150, message = "Address must be up to 150 characters.")
     private String address;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Reservation> reservations;
 
     public Customer(){
 
