@@ -40,9 +40,9 @@ public class Reservation {
     private String reservationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    @NotNull(message = "Customer is mandatory.")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    @NotNull(message = "User is mandatory.")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "package_id")
@@ -59,11 +59,11 @@ public class Reservation {
 
     }
 
-    public Reservation(LocalDate reservationDate, Integer numberOfPeople, String reservationStatus, Customer customer, TravelPackage travelPackage, Guide guide){
+    public Reservation(LocalDate reservationDate, Integer numberOfPeople, String reservationStatus, User user, TravelPackage travelPackage, Guide guide){
         this.reservationDate = reservationDate;
         this.numberOfPeople = numberOfPeople;
         this.reservationStatus = reservationStatus;
-        this.customer = customer;
+        this.user = user;
         this.travelPackage = travelPackage;
         this.guide = guide;
     }
@@ -100,12 +100,12 @@ public class Reservation {
         this.reservationStatus = reservationStatus;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getCustomer() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomer(User customer) {
+        this.user = customer;
     }
 
     public TravelPackage getTravelPackage() {
