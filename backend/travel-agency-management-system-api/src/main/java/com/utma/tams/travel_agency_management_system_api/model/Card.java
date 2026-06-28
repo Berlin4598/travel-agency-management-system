@@ -1,17 +1,17 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -31,26 +31,36 @@ public class Card {
     private String ownerName;
 
     @Column(nullable = false, length = 20)
-    @Pattern(regexp = "^[0-9]{13,19}",message = "Account number must contain only numbers(between 13 and 19 digits)")
+    @Pattern(
+        regexp = "^[0-9]{13,19}$",
+        message = "Account number must contain only numbers (between 13 and 19 digits)."
+    )
     @NotBlank(message = "Account number is mandatory.")
     private String accountNumber;
 
     @Column(nullable = false)
+    @NotNull(message = "Expiration date is mandatory.")
     private LocalDate expirationDate;
 
-    @Pattern(regexp = "^[0-9]{3,4}$", message = "CVV must contain only 3-4 digits.")
-    @Column(name = "cvv", nullable = false, length = 4)
-    private Integer cvv;
+    @Column(nullable = false, length = 4)
+    @Pattern(
+        regexp = "^[0-9]{3,4}$",
+        message = "CVV must contain only numbers (3-4 digits)."
+    )
+    private String cvv;
 
-    @ManyToMany(mappedBy = "cards")
-    private Set<User> users = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull(message = "User is mandatory.")
+    private User user;
+
 
 
     public Card(){
 
     }
 
-    public Card(String ownerName, String accountNumber, LocalDate expirationDate, Integer cvv){
+    public Card(String ownerName, String accountNumber, LocalDate expirationDate, String cvv){
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;
         this.expirationDate = expirationDate;
@@ -89,11 +99,11 @@ public class Card {
         this.expirationDate = expirationDate;
     }
 
-    public Integer getCvv() {
+    public String getCvv() {
         return cvv;
     }
 
-    public void setCvv(Integer cvv) {
+    public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
