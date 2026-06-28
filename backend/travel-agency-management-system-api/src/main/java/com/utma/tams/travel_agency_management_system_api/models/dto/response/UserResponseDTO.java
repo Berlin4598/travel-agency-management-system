@@ -2,6 +2,7 @@ package com.utma.tams.travel_agency_management_system_api.models.dto.response;
 
 public class UserResponseDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
     private String phone;
@@ -9,7 +10,8 @@ public class UserResponseDTO {
     private String address;
 
     
-    public UserResponseDTO(String firstName, String lastName, String phone, String email, String address) {
+    public UserResponseDTO(Long id,String firstName, String lastName, String phone, String email, String address) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
@@ -20,6 +22,8 @@ public class UserResponseDTO {
     public UserResponseDTO(){
 
     }
+
+    
     
     public String getFirstName() {
         return firstName;
@@ -50,6 +54,14 @@ public class UserResponseDTO {
     }
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     
