@@ -52,12 +52,17 @@ public class TravelPackage {
     @NotNull(message = "Destination is mandatory.")
     private Destination destination;
 
-    @OneToMany(mappedBy = "travelPackage")
-    private List<Transportation> transportations;
+    @ManyToOne
+    @JoinColumn(name = "transportation_id", nullable = false)
+    @NotNull(message = "Transportation is mandatory.")
+    private Transportation transportation;
+
+    //Relationships
 
     @OneToMany(mappedBy = "travelPackage")
     private List<Reservation> reservations;
 
+    
 
     public TravelPackage(){
 
