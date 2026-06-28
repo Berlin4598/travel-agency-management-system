@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -36,8 +37,14 @@ public class Destination {
     @Size(max = 200, message = "Description must be up to 200 characters long.")
     private String description;
 
+    //Relationships
+
     @OneToMany(mappedBy = "destination")
     private List<TravelPackage> travelPackages;
+
+    @ManyToMany(mappedBy = "favDestinations")
+    private List<User> userFavs;
+
 
     public Destination(){
 
