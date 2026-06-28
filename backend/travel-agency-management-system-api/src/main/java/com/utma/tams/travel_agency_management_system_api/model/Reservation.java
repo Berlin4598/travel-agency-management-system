@@ -40,7 +40,7 @@ public class Reservation {
     private String reservationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "customer_id")
     @NotNull(message = "User is mandatory.")
     private User user;
 
