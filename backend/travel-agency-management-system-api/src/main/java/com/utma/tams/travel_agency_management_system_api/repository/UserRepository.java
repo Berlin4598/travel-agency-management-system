@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.utma.tams.travel_agency_management_system_api.model.User;
+import com.utma.tams.travel_agency_management_system_api.models.entities.User;
 
 
 public interface UserRepository extends JpaRepository<User, Long>{
