@@ -1,16 +1,16 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 // Transportation POJO Class
@@ -34,21 +34,24 @@ public class Transportation {
     @Min(value = 1, message = "Capacity must be at least 1.")
     private Integer capacity;
 
-    @ManyToOne
-    @JoinColumn(name = "package_id", nullable = false)
-    @NotNull(message = "Travel Package is mandatory.")
-    private TravelPackage travelPackage;
+
+    //Relationships
+    @OneToMany(mappedBy = "transportation")
+    private List<TravelPackage> travelPackages;
+    
+
+    
 
 
     public Transportation(){
 
     }
 
-    public Transportation(String type, String company, Integer capacity, TravelPackage travelPackage){
+    public Transportation(String type, String company, Integer capacity){
         this.type = type;
         this.company = company;
         this.capacity = capacity;
-        this.travelPackage = travelPackage;
+        
     }
 
     public Long getId() {
@@ -81,14 +84,6 @@ public class Transportation {
 
     public void setCapacity(Integer capacity) {
         this.capacity = capacity;
-    }
-
-    public TravelPackage getTravelPackage() {
-        return travelPackage;
-    }
-
-    public void setTravelPackage(TravelPackage travelPackage) {
-        this.travelPackage = travelPackage;
     }
 
     @Override
