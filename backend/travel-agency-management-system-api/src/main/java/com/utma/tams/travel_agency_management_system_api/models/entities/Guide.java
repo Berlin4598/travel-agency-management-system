@@ -1,0 +1,108 @@
+package com.utma.tams.travel_agency_management_system_api.models.entities;
+
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+// Guide POJO Class
+@Entity
+@Table(name = "guides")
+public class Guide {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "guide_id")
+    private Long id;
+
+    @Column(nullable = false, length = 50, name = "first_name")
+    private String firstName;
+
+    @Column(nullable = false, length = 50, name = "last_name")
+    private String lastName;
+
+    @Column(length = 15, name = "phone")
+    private String phone;
+
+    @Column(length = 100, name = "email")
+    private String email;
+
+    @Column(columnDefinition = "BOOLEAN DEFAULT TRUE", name = "available")
+    private Boolean available = true;
+    
+    //Relationships
+    
+    @OneToMany(mappedBy = "guide")
+    private List<Reservation> reservations;
+
+    public Guide() {
+
+    }
+
+    public Guide(String firstName, String lastName, String phone, String email, Boolean available) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
+        this.email = email;
+        this.available = available;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
+    }
+
+    @Override
+    public String toString() {
+        return "GuideID: " + getId() + " | Name: " + getFirstName() + " " + getLastName() + " | Available: " + isAvailable();
+    }
+
+}
