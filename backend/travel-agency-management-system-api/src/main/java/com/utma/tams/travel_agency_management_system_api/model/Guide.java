@@ -45,6 +45,8 @@ public class Guide {
     @Column(columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean available = true;
     
+    //Relationships
+    
     @OneToMany(mappedBy = "guide")
     private List<Reservation> reservations;
 
