@@ -1,9 +1,9 @@
 package com.utma.tams.travel_agency_management_system_api.model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,12 +56,23 @@ public class User {
     
     private String role = "USER";
 
+    //Relationships
+
     @OneToMany(mappedBy = "user")
-    private List<Reservation> reservations;
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Card> cards = new ArrayList<>();
 
     @ManyToMany
-    @JoinTable(name = "cards_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "card_id"))
-    private Set<Card> cards = new HashSet<>();
+    @JoinTable(
+        name = "favorites",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "destination_id")   
+    )
+    private List<Destination> favDestinations;
+
+    
 
     public User(){
 
