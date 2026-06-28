@@ -21,7 +21,7 @@ public class UserService {
 
 
     private UserResponseDTO toResponseDTO(User user){
-        return new UserResponseDTO(user.getFirstName(),user.getLastName(),user.getPhone(),user.getEmail(),user.getAddress());
+        return new UserResponseDTO(user.getId(),user.getFirstName(),user.getLastName(),user.getPhone(),user.getEmail(),user.getAddress());
     }
 
     private User findById(Long id){
@@ -65,6 +65,12 @@ public class UserService {
         user.setEmail(userRequestDTO.getEmail());
         user.setPhone(userRequestDTO.getPhone());
         user.setPassword(userRequestDTO.getPassword());
+
+        if (userRequestDTO.getEmail().contains("@travelagency.com") && user.getRole().equals("USER")) {
+            user.setRole("ADMIN");
+        } else{
+            user.setRole("USER");
+        }
 
         userRepository.save(user);
         return toResponseDTO(user);
