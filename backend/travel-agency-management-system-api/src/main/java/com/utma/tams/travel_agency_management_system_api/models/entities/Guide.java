@@ -44,12 +44,11 @@ public class Guide {
 
     }
 
-    public Guide(String firstName, String lastName, String phone, String email, Boolean available) {
+    public Guide(String firstName, String lastName, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.email = email;
-        this.available = available;
     }
 
     public Long getId() {
