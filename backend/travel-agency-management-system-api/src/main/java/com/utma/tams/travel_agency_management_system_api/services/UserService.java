@@ -41,9 +41,9 @@ public class UserService {
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO){
         User user = new User(
             userRequestDTO.getFirstName(),
-            userRequestDTO.getLastName(),
-            userRequestDTO.getPhone(),
-            userRequestDTO.getEmail(),
+                userRequestDTO.getLastName(),
+                userRequestDTO.getPhone(),
+                userRequestDTO.getEmail(),
             userRequestDTO.getPassword(),
             userRequestDTO.getAddress()
         );
