@@ -1,5 +1,7 @@
 package com.utma.tams.travel_agency_management_system_api.services;
 
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +44,9 @@ public class CardService {
     public CardResponseDTO createCard(CardRequestDTO requestDTO, Long userId){
         User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
 
-        Card card = new Card(requestDTO.getOwnerName(), requestDTO.getAccountNumber(), requestDTO.getExpirationDate(), requestDTO.getCvv(), user);
+        LocalDate expirationDate = YearMonth.parse(requestDTO.getExpirationDate()).atDay(1);
+
+        Card card = new Card(requestDTO.getOwnerName(), requestDTO.getAccountNumber(), expirationDate, requestDTO.getCvv(), user);
 
         cardRepository.save(card);
         return toResponseDTO(card);
@@ -53,7 +57,7 @@ public class CardService {
         
         card.setOwnerName(requestDTO.getOwnerName());
         card.setAccountNumber(requestDTO.getAccountNumber());
-        card.setExpirationDate(requestDTO.getExpirationDate());
+        card.setExpirationDate(YearMonth.parse(requestDTO.getExpirationDate()).atDay(1));
         card.setCvv(requestDTO.getCvv());
 
         cardRepository.save(card);
