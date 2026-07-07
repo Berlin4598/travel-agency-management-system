@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.TransportationRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.TransportationResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.Transportation;
@@ -24,7 +25,7 @@ public class TransportationService {
     }
 
     private Transportation findById(Long id){
-        return transportationRepository.findById(id).orElseThrow(()-> new RuntimeException("Transportation not found"));
+        return transportationRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Transportation not found"));
     }
 
     public List<TransportationResponseDTO> getAllTransportations(){

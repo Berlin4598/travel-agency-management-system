@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.UserRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.UserResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.User;
@@ -25,7 +26,7 @@ public class UserService {
     }
 
     private User findById(Long id){
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     public List<UserResponseDTO> getAllUsers(){

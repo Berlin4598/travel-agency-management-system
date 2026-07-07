@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.CardRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.CardResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.Card;
@@ -30,7 +31,7 @@ public class CardService {
     }
 
     private Card findById(Long id){
-        return cardRepository.findById(id).orElseThrow(()-> new RuntimeException("Card not found"));
+        return cardRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Card not found"));
     }
 
     public List<CardResponseDTO> getAllCards(){
@@ -42,7 +43,7 @@ public class CardService {
     }
 
     public CardResponseDTO createCard(CardRequestDTO requestDTO, Long userId){
-        User user = userRepository.findById(userId).orElseThrow(()-> new RuntimeException("User not found"));
+        User user = userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found"));
 
         LocalDate expirationDate = YearMonth.parse(requestDTO.getExpirationDate()).atDay(1);
 

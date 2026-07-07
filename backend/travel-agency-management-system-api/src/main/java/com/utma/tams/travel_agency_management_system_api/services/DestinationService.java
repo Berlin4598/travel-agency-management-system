@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.DestinationRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.DestinationResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.Destination;
@@ -25,7 +26,7 @@ public class DestinationService {
     }
 
     private Destination findById(Long id){
-        return destinationRepository.findById(id).orElseThrow(()-> new RuntimeException("Destination not found"));
+        return destinationRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Destination not found"));
     }
 
     // CRUD methods

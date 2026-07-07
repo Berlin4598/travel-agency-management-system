@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.TravelPackageRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.TravelPackageResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.TravelPackage;
@@ -42,7 +43,7 @@ public class TravelPackageService {
     }
 
     private TravelPackage findById(Long id){
-        return travelPackageRepository.findById(id).orElseThrow(()-> new RuntimeException("Travel Package not found"));
+        return travelPackageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Travel Package not found"));
     }
 
     public List<TravelPackageResponseDTO> getAllTravelPackages(){
@@ -55,8 +56,8 @@ public class TravelPackageService {
 
     public TravelPackageResponseDTO createTravelPackage(TravelPackageRequestDTO requestDTO){
 
-        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new RuntimeException("Destination not found"));
-        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new RuntimeException("Transportation not found"));
+        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new ResourceNotFoundException("Destination not found"));
+        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new ResourceNotFoundException("Transportation not found"));
 
         TravelPackage travelPackage = new TravelPackage(
             requestDTO.getPackageName(),
@@ -71,8 +72,8 @@ public class TravelPackageService {
 
     public TravelPackageResponseDTO updateTravelPackage(Long id, TravelPackageRequestDTO requestDTO){
         var travelPackage = findById(id);
-        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new RuntimeException("Destination not found"));
-        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new RuntimeException("Transportation not found"));
+        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new ResourceNotFoundException("Destination not found"));
+        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new ResourceNotFoundException("Transportation not found"));
 
         travelPackage.setPackageName(requestDTO.getPackageName());
         travelPackage.setDescription(requestDTO.getDescription());

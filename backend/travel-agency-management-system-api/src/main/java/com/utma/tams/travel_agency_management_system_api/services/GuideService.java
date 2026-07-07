@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.GuideRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.GuideResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.Guide;
@@ -25,7 +26,7 @@ public class GuideService {
     }
 
     private Guide findById(Long id){
-        return guideRepository.findById(id).orElseThrow(()-> new RuntimeException("Guide not found"));
+        return guideRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Guide not found"));
     }
 
     public List<GuideResponseDTO> getAllGuides(){
