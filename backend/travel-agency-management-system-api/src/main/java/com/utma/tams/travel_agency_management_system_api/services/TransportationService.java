@@ -61,6 +61,5 @@ public class TransportationService {
     public void deleteTransportation(Long id){
         transportationRepository.delete(findById(id));
     }
-    
 
 }
