@@ -53,12 +53,13 @@ public class TravelPackage {
 
     }
 
-    public TravelPackage(String packageName, String description, BigDecimal price, Integer durationDays, Destination destination){
+    public TravelPackage(String packageName, String description, BigDecimal price, Integer durationDays, Destination destination, Transportation transportation){
         this.packageName = packageName;
         this.description = description;
         this.price = price;
         this.durationDays = durationDays;
         this.destination = destination;
+        this.transportation = transportation;
     }
 
     public Long getId() {
@@ -107,6 +108,16 @@ public class TravelPackage {
 
     public void setDestination(Destination destination) {
         this.destination = destination;
+    }
+
+    
+
+    public Transportation getTransportation() {
+        return transportation;
+    }
+
+    public void setTransportation(Transportation transportation) {
+        this.transportation = transportation;
     }
 
     @Override
