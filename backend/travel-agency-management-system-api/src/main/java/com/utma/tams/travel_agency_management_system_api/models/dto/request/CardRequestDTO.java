@@ -1,6 +1,5 @@
 package com.utma.tams.travel_agency_management_system_api.models.dto.request;
 
-import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +21,7 @@ public class CardRequestDTO {
     private String accountNumber;
 
     @NotNull(message = "Expiration date is mandatory.")
-    private LocalDate expirationDate;
+    private String expirationDate;
 
     @Pattern(
         regexp = "^[0-9]{3,4}$",
@@ -31,7 +30,7 @@ public class CardRequestDTO {
     private String cvv;
 
 
-    public CardRequestDTO(String ownerName, String accountNumber, LocalDate expirationDate, String cvv){
+    public CardRequestDTO(String ownerName, String accountNumber, String expirationDate, String cvv){
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;
         this.expirationDate = expirationDate;
@@ -58,11 +57,11 @@ public class CardRequestDTO {
         this.accountNumber = accountNumber;
     }
 
-    public LocalDate getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
