@@ -41,11 +41,12 @@ public class Card {
 
     }
 
-    public Card(String ownerName, String accountNumber, LocalDate expirationDate, String cvv){
+    public Card(String ownerName, String accountNumber, LocalDate expirationDate, String cvv, User user){
         this.ownerName = ownerName;
         this.accountNumber = accountNumber;
         this.expirationDate = expirationDate;
         this.cvv = cvv;
+        this.user = user;
     }
 
     public Long getId() {
@@ -87,6 +88,16 @@ public class Card {
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
 
     
 }
