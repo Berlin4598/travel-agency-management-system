@@ -1,4 +1,4 @@
-package com.utma.tams.travel_agency_management_system_api.controller;
+package com.utma.tams.travel_agency_management_system_api.controllers;
 
 import java.util.List;
 
