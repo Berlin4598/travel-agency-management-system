@@ -59,7 +59,7 @@ public class TransportationService {
     }
 
     public void deleteTransportation(Long id){
-        transportationRepository.deleteById(id);
+        transportationRepository.delete(findById(id));
     }
     
 
