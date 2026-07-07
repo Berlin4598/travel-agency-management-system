@@ -2,6 +2,7 @@ package com.utma.tams.travel_agency_management_system_api.controllers;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,7 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<CardResponseDTO> createCard(@RequestBody @Valid CardRequestDTO requestDTO, @RequestParam (required = true) Long userId){
-        return ResponseEntity.ok(cardService.createCard(requestDTO, userId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(requestDTO, userId));
     }
 
     @PutMapping("/{id}")
