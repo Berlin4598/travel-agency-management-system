@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.DestinationRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.DestinationResponseDTO;
+import com.utma.tams.travel_agency_management_system_api.models.dto.response.WeatherResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.models.entities.Destination;
 import com.utma.tams.travel_agency_management_system_api.repository.DestinationRepository;
 
@@ -16,9 +17,11 @@ public class DestinationService {
     
     //Dependency injection
     private final DestinationRepository destinationRepository;
+    private final WeatherService weatherService;
 
-    public DestinationService(DestinationRepository destinationRepository){
+    public DestinationService(DestinationRepository destinationRepository, WeatherService weatherService){
         this.destinationRepository = destinationRepository;
+        this.weatherService = weatherService;
     }
 
      private DestinationResponseDTO toResponseDTO(Destination destination){
@@ -62,6 +65,11 @@ public class DestinationService {
 
     public void deleteDestination (Long id){
         destinationRepository.delete(findById(id));
+    }
+    
+    public WeatherResponseDTO getDestinationWeather(Long id) {
+        Destination destination = findById(id);
+        return weatherService.getWeatherByDestination(destination);
     }
 
 }
