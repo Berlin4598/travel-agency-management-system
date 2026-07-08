@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.utma.tams.travel_agency_management_system_api.models.dto.request.DestinationRequestDTO;
 import com.utma.tams.travel_agency_management_system_api.models.dto.response.DestinationResponseDTO;
+import com.utma.tams.travel_agency_management_system_api.models.dto.response.WeatherResponseDTO;
 import com.utma.tams.travel_agency_management_system_api.services.DestinationService;
 
 import jakarta.validation.Valid;
@@ -25,27 +26,30 @@ public class DestinationController {
 
     private final DestinationService destinationService;
 
-    public DestinationController(DestinationService destinationService){
+    public DestinationController(DestinationService destinationService) {
         this.destinationService = destinationService;
     }
 
     @GetMapping
-    public ResponseEntity<List<DestinationResponseDTO>> getAllDestinations(){
+    public ResponseEntity<List<DestinationResponseDTO>> getAllDestinations() {
         return ResponseEntity.ok(destinationService.getAllDestinations());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<DestinationResponseDTO> getDestinationById(@PathVariable Long id){
+    public ResponseEntity<DestinationResponseDTO> getDestinationById(@PathVariable Long id) {
         return ResponseEntity.ok(destinationService.getDestinationById(id));
     }
 
     @PostMapping
-    public ResponseEntity<DestinationResponseDTO> createDestination(@RequestBody @Valid DestinationRequestDTO destinationRequestDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(destinationService.createDestination(destinationRequestDTO));
+    public ResponseEntity<DestinationResponseDTO> createDestination(
+            @RequestBody @Valid DestinationRequestDTO destinationRequestDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(destinationService.createDestination(destinationRequestDTO));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DestinationResponseDTO> updateDestination(@PathVariable Long id, @RequestBody @Valid DestinationRequestDTO destinationRequestDTO){
+    public ResponseEntity<DestinationResponseDTO> updateDestination(@PathVariable Long id,
+            @RequestBody @Valid DestinationRequestDTO destinationRequestDTO) {
         return ResponseEntity.ok(destinationService.updateDestination(id, destinationRequestDTO));
     }
 
@@ -55,6 +59,9 @@ public class DestinationController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @GetMapping("/{id}/weather")
+    public ResponseEntity<WeatherResponseDTO> getDestinationWeather(@PathVariable Long id) {
+        return ResponseEntity.ok(destinationService.getDestinationWeather(id));
+    }
 
 }
