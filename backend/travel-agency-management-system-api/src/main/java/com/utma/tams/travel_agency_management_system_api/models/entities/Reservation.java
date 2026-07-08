@@ -2,8 +2,12 @@ package com.utma.tams.travel_agency_management_system_api.models.entities;
 
 import java.time.LocalDate;
 
+import com.utma.tams.travel_agency_management_system_api.models.enums.ReservationStatus;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,7 +32,8 @@ public class Reservation {
     private Integer numberOfPeople;
 
     @Column(nullable = false, length = 20, name = "reservation_status")
-    private String reservationStatus;
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus reservationStatus;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
@@ -47,7 +52,7 @@ public class Reservation {
 
     }
 
-    public Reservation(LocalDate reservationDate, Integer numberOfPeople, String reservationStatus, User user, TravelPackage travelPackage, Guide guide){
+    public Reservation(LocalDate reservationDate, Integer numberOfPeople, ReservationStatus reservationStatus,User user, TravelPackage travelPackage, Guide guide){
         this.reservationDate = reservationDate;
         this.numberOfPeople = numberOfPeople;
         this.reservationStatus = reservationStatus;
@@ -80,11 +85,11 @@ public class Reservation {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public String getReservationStatus() {
+    public ReservationStatus getReservationStatus() {
         return reservationStatus;
     }
 
-    public void setReservationStatus(String reservationStatus) {
+    public void setReservationStatus(ReservationStatus reservationStatus) {
         this.reservationStatus = reservationStatus;
     }
 
