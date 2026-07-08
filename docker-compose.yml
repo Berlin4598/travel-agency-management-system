@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+  frontend:
+    container_name: travelagency_frontend
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  backend:
+    container_name: travelagency_backend
+    build:
+      context: ./backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+
+  database:
+    container_name: travelagency_database
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: travelagency
+    ports:
+      - "3306:3306"
