@@ -1,0 +1,50 @@
+# ==========================================
+# 1. Archivos del Sistema Operativo (¡CRÍTICO PARA TU EQUIPO!)
+# ==========================================
+# Tus compañeros usan Windows, esto evitará que suban la basura que genera su explorador
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Tú usas Linux, esto evita que subas tus archivos temporales
+.directory
+*~
+
+# ==========================================
+# 2. Editores de Código
+# ==========================================
+# Archivos de configuración locales de VS Code, WebStorm, etc.
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ==========================================
+# 3. Base de Datos y Docker (Preparando el terreno)
+# ==========================================
+# Cuando levantes el contenedor de MySQL, crearás una carpeta local para guardar la data.
+# ¡NUNCA debes subir los archivos binarios de la BD a Git!
+/mysql_data/
+/db_data/
+/data/
+
+# ==========================================
+# 4. Variables de Entorno y Seguridad
+# ==========================================
+# Aquí irán las contraseñas de tu base de datos y la conexión a la API. NUNCA se suben.
+.env
+.env.local
+.env.development
+*.pem
+
+# ==========================================
+# 5. Logs y Dependencias futuras (Si usan Node.js o PHP después)
+# ==========================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+node_modules/
+vendor/

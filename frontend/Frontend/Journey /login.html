@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="has-background-info-light p-4 is-flex is-align-items-center">
+    <img src="" alt="Travel Agency" class="LogoAgencia">
+</header>
+    <main class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-variable is-8 mt-5">
+            
+            <div class="column is-7">
+                <form action="Main.html">
+                    
+    <div class="field mb-4">
+    <label for="login-user" class="label">User</label>
+    <div class="control">
+    <input id="login-user" name="username" class="input has-background-info-light" type="text" placeholder="Enter your username" required>
+    </div></div>
+                                    
+    <div class="field mb-4">
+    <label for="login-email" class="label">Email</label>
+    <div class="control">
+    <input id="login-email" name="email" class="input has-background-info-light" type="email" placeholder="email@example.com" required>
+    </div></div>
+
+    <div class="field mb-5">
+    <label for="login-password" class="label">Password</label>
+    <div class="control">
+    <input id="login-password" name="password" class="input has-background-info-light" type="password" placeholder="********" required>
+    </div></div>
+
+    <div class="is-flex is-align-items-center is-justify-content-space-between mt-5">
+    <p class="is-size-7">You don't have any account? <strong><a href="register.html" class="has-text-dark">Create one</a></strong></p>
+    <button type="submit" class="button is-info">Continue</button>
+    </div>
+    </form></div>
+
+    <div class="column is-5">
+    <div class="box p-0 CajaCarrusel">
+    <div class="CarruselContenedor" id="CarruselAuto">
+        <img src="src/Viaje1.jpeg" alt="Viaje1" class="CarruselImg">
+        <img src="src/Viaje2.jpeg" alt="Viaje2" class="CarruselImg">
+        <img src="src/Vuelo1.jpeg" alt="Vuelo1" class="CarruselImg">
+        <img src="src/vuelo2.jpeg" alt="Vuelo2" class="CarruselImg">
+    </div></div></div>
+
+    </div></div></main>
+
+<script>
+    const carrusel = document.getElementById('CarruselAuto');
+    setInterval(() => {        
+        const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth;        
+        if (carrusel.scrollLeft >= scrollMaximo - 1) {
+            carrusel.scrollLeft = 0;
+        } else {
+            carrusel.scrollLeft += carrusel.clientWidth;
+        } 
+    }, 3000); 
+</script>
+</body>
+</html>

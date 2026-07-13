@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Travel Agency</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <header class="has-background-info-light p-4 is-flex is-align-items-center is-justify-content-space-between">
+    <div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+    <button class="button is-info is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+    <span>Menu</span></button></div>
+
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+        <a href="Main.html" class="dropdown-item">Main Page</a>
+        <a href="Profile.html" class="dropdown-item">Profile</a>
+        <a href="login.html" class="dropdown-item">Log out</a>
+    </div></div></div>
+
+    <div class="is-flex is-align-items-center">
+        <img src="img/" alt="Logo" class="LogoAgencia">
+    </div>
+
+    <a href="Profile.html">
+        <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
+    </a>
+</header>
+
+<main class="section">
+<div class="container is-max-desktop">
+<div class="columns is-variable is-6">
+
+<div class="column is-7">
+<!-- SECCIÓN A1: Info del Destino -->
+<div id="seccion-a1" class="box has-background-info-light mb-5 is-relative">
+<!-- El JS inyectará el título, estrellas y descripción aquí -->
+</div>
+
+<!-- SECCIÓN A2: Paquetes -->
+<h3 class="title is-4 mb-4">Travel pack options</h3>
+<div id="seccion-a2" class="columns is-multiline">
+<!-- El JS inyectará las 3 opciones de paquetes aquí -->
+</div>
+</div>
+
+<div class="column is-5">
+<div class="box p-0 CajaCarrusel">
+<div class="CarruselContenedor" id="CarruselAuto">
+<img src="src/Ciudad.jpeg" alt="Ciudad" class="CarruselImg">
+<img src="src/Nevado.jpeg" alt="Nevado" class="CarruselImg">
+<img src="src/Bosque.jpeg" alt="Bosque" class="CarruselImg">
+<img src="src/nuebayol.jpeg" alt="Ciudad2" class="CarruselImg">
+<img src="src/CiudadEuro.jpeg" alt="Lugar" class="CarruselImg">
+</div></div></div>
+
+</div></div></main>
+
+<div id="modal-reserva" class="modal">
+<div class="modal-background" onclick="cerrarModal()"></div>
+<div class="modal-content">
+<div class="box has-text-centered p-6">
+<h3 class="title is-3">You want to add this trip?</h3>
+<p id="modal-nombre-paquete" class="is-size-5 mb-5 has-text-grey"></p>
+<div class="buttons is-centered mt-4">
+<button class="button is-danger is-medium" onclick="cerrarModal()">No</button>
+<button class="button is-success is-medium" onclick="confirmarReserva()">Yes</button>
+</div></div></div></div>
+
+<script>
+// 1. Base de datos simulada ACTUALIZADA (Match con travel_packages y transportation)
+const bdDestinos = {
+1: { nombre: "Balandra Beach", ubicacion: "Baja California Sur, México", estrellas: "⭐⭐⭐⭐⭐", desc: "Famous for its shallow, crystal-clear waters and the 'Mushroom' rock formation.", paquetes: [{ package_id: 101, package_name: "Basic Getaway", price: 300.00, duration_days: 2, description: "1 Night Hostel, basic meals included.", transport: "Bus" }, { package_id: 102, package_name: "Standard Tour", price: 600.00, duration_days: 4, description: "3 Nights Hotel, guided tours and breakfast.", transport: "Commercial Flight" }, { package_id: 103, package_name: "Premium Experience", price: 1250.00, duration_days: 6, description: "5 Nights Resort, all inclusive VIP access.", transport: "First Class Flight" }]},
+2: { nombre: "Bora Bora", ubicacion: "French Polynesia", estrellas: "⭐⭐⭐⭐", desc: "The classic luxury destination with bungalows over turquoise waters.", paquetes: [{ package_id: 201, package_name: "Economy Pack", price: 1000.00, duration_days: 4, description: "3 Nights hotel stay.", transport: "Commercial Flight" }, { package_id: 202, package_name: "Comfort Pack", price: 2500.00, duration_days: 6, description: "5 Nights Resort + Island Tours.", transport: "Commercial Flight" }, { package_id: 203, package_name: "Luxury Escape", price: 5000.00, duration_days: 7, description: "Overwater Bungalow full experience.", transport: "Private Jet" }]}
+};
+
+// 2. Leer ID de la URL
+const urlParams = new URLSearchParams(window.location.search);
+const destinoId = urlParams.get('id') || 1;
+const destinoActual = bdDestinos[destinoId];
+let paqueteSeleccionadoTemporal = null;
+
+// 3. Dibujar A1 (Info del Destino)
+document.getElementById('seccion-a1').innerHTML = `
+<h1 class="title is-2 mb-1">${destinoActual.nombre}</h1>
+<p class="has-text-grey mb-2">📍 ${destinoActual.ubicacion} | ${destinoActual.estrellas}</p>
+<p class="has-text-dark">${destinoActual.desc}</p>
+<button id="btn-fav" class="btn-favorito" onclick="toggleFavorito()" title="Save as favorite">★</button>
+`;
+
+// 4. Dibujar A2 (Paquetes ACTUALIZADOS a tu BD)
+document.getElementById('seccion-a2').innerHTML = destinoActual.paquetes.map(p => `
+<div class="column is-4">
+<div class="box has-background-white paquete-card has-text-centered" onclick="abrirModal('${p.package_name}', ${p.price})">
+<h4 class="title is-5 mb-2">${p.package_name}</h4>
+<h5 class="subtitle is-3 has-text-info has-text-weight-bold mb-3">$${p.price}</h5>
+<p class="is-size-7 has-text-dark mb-1"><strong>Duration:</strong> ${p.duration_days} Days</p>
+<p class="is-size-7 has-text-dark mb-2"><strong>Transport:</strong> ${p.transport}</p>
+<p class="is-size-7 has-text-grey">${p.description}</p>
+<button class="button is-info is-small is-fullwidth mt-4">Select</button>
+</div></div>
+`).join('');
+
+// --- LÓGICA DE INTERACCIÓN ---
+function toggleFavorito() {
+document.getElementById('btn-fav').classList.toggle('activo');
+}
+
+function abrirModal(nombrePaquete, precio) {
+paqueteSeleccionadoTemporal = `${destinoActual.nombre} - ${nombrePaquete} ($${precio})`;
+document.getElementById('modal-nombre-paquete').innerHTML = paqueteSeleccionadoTemporal;
+document.getElementById('modal-reserva').classList.add('is-active');
+}
+
+function cerrarModal() {
+document.getElementById('modal-reserva').classList.remove('is-active');
+paqueteSeleccionadoTemporal = null;
+}
+
+function confirmarReserva() {
+alert("Trip added successfully!");
+cerrarModal();
+}
+
+// Carrusel Automático
+const carrusel = document.getElementById('CarruselAuto');
+setInterval(() => { const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth; if (carrusel.scrollLeft >= scrollMaximo - 1) { carrusel.scrollLeft = 0; } else { carrusel.scrollLeft += carrusel.clientWidth;} }, 3000);
+</script>
+
+</body>
+</html>

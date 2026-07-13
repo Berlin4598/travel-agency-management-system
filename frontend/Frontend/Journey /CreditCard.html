@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Credit Card</title>
+<!-- Asegúrate de incluir tus estilos de Bulma y CSS aquí -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="has-background-info-light p-4 is-flex is-align-items-center is-justify-content-space-between">
+    <div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+    <button class="button is-info is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+    <span>Menu</span></button></div>
+
+    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+        <a href="Main.html" class="dropdown-item">Main Page</a>
+    </div></div></div>
+
+    <div class="is-flex is-align-items-center">
+        <img src="img/" alt="Logo" class="LogoAgencia">
+    </div>
+
+    <a href="Profile.html">
+        <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
+    </a>
+</header>
+
+<main class="section">
+<div class="container is-max-desktop">
+<div class="columns is-centered mt-5">
+<div class="column is-6">
+<div class="box p-5">
+
+<h1 class="title is-4 has-text-centered mb-5">Add New Credit Card</h1>
+
+<!-- Formulario que simula guardar y regresar al perfil -->
+<form action="Profile.html">
+
+<div class="field mb-4">
+<label for="card-owner" class="label">Owner Name</label>
+<div class="control">
+<input id="card-owner" name="owner_name" class="input has-background-info-light" type="text" placeholder="Name on card" required>
+</div>
+</div>
+
+<div class="field mb-4">
+<label for="card-number" class="label">Card Number</label>
+<div class="control">
+<input id="card-number" name="account_number" class="input has-background-info-light" type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
+</div>
+</div>
+
+<div class="columns is-mobile">
+<div class="column is-6">
+<div class="field">
+<label for="card-exp" class="label">Expiration Date</label>
+<div class="control">
+<input id="card-exp" name="expiration_date" class="input has-background-info-light" type="month" required>
+</div>
+</div>
+</div>
+
+<div class="column is-6">
+<div class="field">
+<label for="card-cvv" class="label">CVV</label>
+<div class="control">
+<input id="card-cvv" name="cvv" class="input has-background-info-light" type="password" placeholder="XXX" maxlength="4" required>
+</div>
+</div>
+</div>
+</div>
+
+<div class="is-flex is-justify-content-space-between mt-5">
+<a href="Profile.html" class="button is-danger is-light">Cancel</a>
+<button type="submit" class="button is-success">Save Card</button>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body>
+</html>
