@@ -69,5 +69,14 @@ public class CardService {
         cardRepository.delete(findById(cardId));
     }
 
+    public List<CardResponseDTO> findUserCards(Long userId){
+
+        if (cardRepository.findByUserId(userId).isEmpty()) {
+            throw new ResourceNotFoundException("User has no cards");
+        }
+        return cardRepository.findByUserId(userId).stream()
+        .map(this::toResponseDTO).collect(Collectors.toList());
+    }
+
 
 }

@@ -108,6 +108,34 @@ public class ReservationService {
         reservationRepository.delete(findById(id));
     }
 
+    public ReservationResponseDTO confirmReservation(Long id){
+        var reservation = findById(id);
+        reservation.setReservationStatus(ReservationStatus.CONFIRMED);
+        reservationRepository.save(reservation);
+
+        return toResponseDTO(reservation);
+    }
+
+    public ReservationResponseDTO cancelReservation(Long id){
+        var reservation = findById(id);
+        reservation.setReservationStatus(ReservationStatus.CANCELED);
+        reservationRepository.save(reservation);
+
+        reservation.getGuide().setAvailable(true);
+        guideRepository.save(reservation.getGuide());
+        
+        return toResponseDTO(reservation);
+    }
+
+    
+    public List<ReservationResponseDTO> getUserReservations(Long id){
+        if (reservationRepository.findByUserId(id).isEmpty()) {
+            throw new ResourceNotFoundException("No reservations");
+        }
+        return reservationRepository.findByUserId(id).stream()
+        .map(this::toResponseDTO).collect(Collectors.toList());
+    }
+
 
 
 }

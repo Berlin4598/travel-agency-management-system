@@ -55,5 +55,10 @@ public class GuideController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/available")
+    public ResponseEntity<List<GuideResponseDTO>> getAvailableGuides(){
+        return ResponseEntity.ok(guideService.getAvailableGuides());
+    }
+
 
 }

@@ -70,6 +70,12 @@ public class GuideService {
 
 
 
+    public List<GuideResponseDTO> getAvailableGuides(){
+        return guideRepository.findByAvailable(true).stream()
+        .map(this::toResponseDTO)
+        .collect(Collectors.toList());
+        
+    }
 
 
 

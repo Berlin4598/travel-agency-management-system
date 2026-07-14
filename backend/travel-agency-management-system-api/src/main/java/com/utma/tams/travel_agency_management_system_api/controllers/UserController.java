@@ -55,5 +55,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/role/{role}")
+    public ResponseEntity<List<UserResponseDTO>> findByRole(@PathVariable String role){
+        return ResponseEntity.ok(userService.findByRole(role));
+    }
+
+    
 
 }

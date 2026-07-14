@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,6 +56,21 @@ public class ReservationController {
         reservationService.deleteReservation(id);
         return ResponseEntity.noContent().build();
     } 
+
+    @PatchMapping("/{id}/confirm")
+    public ResponseEntity<ReservationResponseDTO> confirmReservation(@PathVariable Long id){
+        return ResponseEntity.ok(reservationService.confirmReservation(id));
+    }
+
+    @PatchMapping("/{id}/cancel")
+    public ResponseEntity<ReservationResponseDTO> cancelReservation(@PathVariable Long id){
+        return ResponseEntity.ok(reservationService.cancelReservation(id));
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<ReservationResponseDTO>> getUserReservations(@RequestParam Long id){
+        return ResponseEntity.ok(reservationService.getUserReservations(id));
+    }
 
     
 }

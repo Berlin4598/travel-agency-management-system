@@ -56,5 +56,10 @@ public class CardController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/user")
+    public ResponseEntity<List<CardResponseDTO>> findUserCards(@RequestParam Long userId){
+        return ResponseEntity.ok(cardService.findUserCards(userId));
+    }
+
 
 }

@@ -18,6 +18,7 @@ public class UserService {
 
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
+
     }
 
 
@@ -80,6 +81,15 @@ public class UserService {
     public void deleteUser(Long id){
         userRepository.delete(findById(id));
     }
+
+    public List<UserResponseDTO> findByRole(String role){
+        if (!role.equals("ADMIN") && !role.equals("USER")) {
+           throw new ResourceNotFoundException("Role not found. Role must be ADMIN or USER");
+        }
+        return userRepository.findByRole(role).stream()
+        .map(this::toResponseDTO).collect(Collectors.toList());
+    }
+
 
     
 }
