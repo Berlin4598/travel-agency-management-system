@@ -4,48 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <title>Travel Agency</title>
+    <title>Travel Agency - Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-   <header class="has-background-info-light p-4 is-flex is-align-items-center is-justify-content-space-between">
-    <div class="dropdown is-hoverable">
-    <div class="dropdown-trigger">
-    <button class="button is-info is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-    <span>Menu</span></button></div>
+<body class="fondo-crema">
+<header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+        <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+        <button class="button btnCafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+        <span>Menu</span></button></div>
 
-    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-    <div class="dropdown-content">
-        <a href="Main.html" class="dropdown-item">Main Page</a>
-        <a href="login.html" class="dropdown-item">Log out</a>
-    </div></div></div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+            <a href="Main.html" class="dropdown-item">Main Page</a>
+            
+            <a href="login.html" class="dropdown-item">Log out</a>
+        </div></div></div>
 
-    <div class="is-flex is-align-items-center">
-        <img src="img/" alt="Logo" class="LogoAgencia">
-    </div>
+        <div class="is-flex is-align-items-center">
+            <img src="img/" alt="Logo" class="LogoAgencia">
+        </div>
 
-    <a href="Profile.html">
-        <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
-    </a>
-</header>
+        <a href="Profile.html">
+            <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
+        </a>
+    </header>
+
 <main class="section">
 <div class="container is-max-desktop">
 <div class="columns is-variable is-6 mt-4">
 
+<!-- COLUMNA IZQUIERDA -->
 <div class="column is-7">
-<div class="box has-background-info perfil-banner is-flex is-align-items-center mb-5">
+<div class="box perfil-banner-boutique is-flex is-align-items-center mb-5">
 <img src="src/Usuario.jpg" alt="Icono de Usuario" class="icono-usuario">
-<h2 id="nombre-usuario" class="title is-3 has-text-white ml-4 mb-0"></h2>
+<h2 id="nombre-usuario" class="title is-3 ml-4 mb-0 texto-crema"></h2>
 </div>
 
-<h3 class="title is-4 mb-3">Reservations</h3>
+<h3 class="title is-4 mb-3 texto-espresso">Reservations</h3>
 <div id="contenedor-reservaciones" class="reservaciones-scroll mb-3">
 </div>
 </div>
 
+<!-- COLUMNA DERECHA -->
 <div class="column is-5">
-<div class="box has-background-info-light favoritos-sticky">
-<h3 class="title is-4 has-text-centered mb-4">Favorite places</h3>
+<div class="box caja-favoritos-boutique favoritos-sticky">
+<h3 class="title is-4 has-text-centered mb-4 texto-espresso">Favorite places</h3>
 <ul id="lista-favoritos-dinamica"></ul>
 </div>
 </div>
@@ -53,101 +57,75 @@
 </div></div>
 </main>
 
+<!-- MODAL -->
 <div id="modal-pago" class="modal">
 <div class="modal-background" onclick="cerrarModalPago()"></div>
 <div class="modal-content">
-<div class="box p-5">
-<h3 class="title is-4 has-text-centered mb-2">Select Payment Method</h3>
-<p class="has-text-centered mb-4">Paying for: <strong id="modal-nombre-paquete" class="has-text-dark"></strong><br>Total to pay: <strong id="modal-total-pago" class="has-text-link"></strong></p>
+<div class="box modal-boutique p-5">
+<h3 class="title is-4 has-text-centered mb-2 texto-espresso">Select Payment Method</h3>
+<p class="has-text-centered mb-4 texto-cafe-oscuro">Paying for: <strong id="modal-nombre-paquete" class="texto-espresso"></strong><br>Total to pay: <strong id="modal-total-pago" class="texto-terracota"></strong></p>
 
 <div id="contenedor-tarjetas"></div>
 
-<a href="CreditCard.html" class="button is-info is-light is-small is-fullwidth mb-4">+ Add new card</a>
+<a href="CreditCard.html" class="button btn-cafe is-outlined is-small is-fullwidth mb-4">+ Add new card</a>
 <div class="buttons is-centered mt-4">
-<button class="button is-danger" onclick="cerrarModalPago()">Cancel</button>
-<button class="button is-success" onclick="procesarPago()">Confirm Payment</button>
+<button class="button btn-cancelar" onclick="cerrarModalPago()">Cancel</button>
+<button class="button btn-cafe-solido" onclick="procesarPago()">Confirm Payment</button>
 </div>
 </div>
 </div>
 </div>
 
 <script>
-// base feik
 const user = { first_name: "Lupita", last_name: "Tiktok" };
 let res = [{ id: 101, date: "2026-10-15", ppl: 2, status: "Confirmed", pkg: "Balandra Beach Package", price: 1250 }, { id: 102, date: "2026-11-02", ppl: 1, status: "Pending", pkg: "Tokyo City Tour", price: 800 }, { id: 103, date: "2026-12-10", ppl: 2, status: "Canceled", pkg: "Tulum Getaway", price: 950 }];
 let favs = [{ id: 1, name: "Bora Bora Resort", link: "journey.html?id=1" }, { id: 2, name: "Tulum Ruins", link: "journey.html?id=2" }];
 const tarjetas = [{ id: 1, num: "**** **** **** 1234", exp: "12/28" }, { id: 2, num: "**** **** **** 5678", exp: "09/27" }];
 
-let reservaAPagar = null; // Guarda ID 
+let reservaAPagar = null; 
 
-// funcion Principal
 function render() {
 document.getElementById('nombre-usuario').textContent = `${user.first_name} ${user.last_name}`;
 
-// Inyectar Reservaciones con colores 
 document.getElementById('contenedor-reservaciones').innerHTML = res.map(r => {
-// Lógica para definir el color del texto por el estatus
-let statusColor = r.status === 'Pending' ? 'has-text-warning-dark' : (r.status === 'Confirmed' ? 'has-text-success' : 'has-text-danger');
-// Lógica para mostrar el botón de pagar solo si está pendiente
-let btnPagar = r.status === 'Pending' ? `<button class="button is-small is-success mr-2" onclick="abrirModalPago(${r.id}, ${r.price}, '${r.pkg}')">Pay</button>` : '';
+let statusColor = r.status === 'Pending' ? 'status-pending' : (r.status === 'Confirmed' ? 'status-confirmed' : 'status-canceled');
+let btnPagar = r.status === 'Pending' ? `<button class="button is-small btn-cafe-solido mr-2" onclick="abrirModalPago(${r.id}, ${r.price}, '${r.pkg}')">Pay</button>` : '';
 
-return `<div class="box is-shadowless mb-3 p-4 is-flex is-justify-content-space-between is-align-items-center" style="border: 1px solid #e0e0e0;">
+return `<div class="box tarjeta-reservacion is-shadowless mb-3 p-4 is-flex is-justify-content-space-between is-align-items-center">
 <div>
-<p class="has-text-weight-bold is-size-5">${r.pkg}</p>
-<p class="is-size-7 has-text-grey mb-1">${r.ppl} Adults - ${r.date}</p>
+<p class="has-text-weight-bold is-size-5 texto-espresso">${r.pkg}</p>
+<p class="is-size-7 texto-cafe-oscuro mb-1">${r.ppl} Adults - ${r.date}</p>
 <p class="is-size-7 has-text-weight-bold ${statusColor}">${r.status} - $${r.price} USD</p>
 </div>
 <div class="is-flex is-align-items-center">
 ${btnPagar}
-<button class="button is-small is-danger is-light" onclick="eliminarReserva(${r.id})" title="Delete Reservation">✖</button>
+<button class="button is-small btn-eliminar" onclick="eliminarReserva(${r.id})" title="Delete Reservation">✖</button>
 </div>
 </div>`;
 }).join('');
 
-// Inyectar Favoritos
 if(favs.length > 0) {
-document.getElementById('lista-favoritos-dinamica').innerHTML = favs.map(f => `<li class="mb-2 box p-3 is-shadowless is-flex is-justify-content-space-between is-align-items-center"><a href="${f.link}" class="has-text-weight-semibold has-text-dark">${f.name}</a><button class="button is-small is-white has-text-warning" onclick="eliminarFav(${f.id})" title="Remove">★</button></li>`).join('');
+document.getElementById('lista-favoritos-dinamica').innerHTML = favs.map(f => `<li class="mb-2 box item-favorito p-3 is-shadowless is-flex is-justify-content-space-between is-align-items-center"><a href="${f.link}" class="has-text-weight-semibold texto-espresso">${f.name}</a><button class="button is-small btn-estrella" onclick="eliminarFav(${f.id})" title="Remove">★</button></li>`).join('');
 } else {
-document.getElementById('lista-favoritos-dinamica').innerHTML = `<div class="has-text-centered py-5"><p class="is-size-1 mb-2">🏝️</p><p class="has-text-grey">You don't have any favorite places yet. Explore our destinations!</p></div>`;
+document.getElementById('lista-favoritos-dinamica').innerHTML = `<div class="has-text-centered py-5"><p class="is-size-1 mb-2">🏝️</p><p class="texto-cafe-oscuro">You don't have any favorite places yet. Explore our destinations!</p></div>`;
 }
 }
 
-// Funciones de Eliminación
-function eliminarReserva(id) {
-res = res.filter(r => r.id !== id);
-render(); 
-}
+function eliminarReserva(id) { res = res.filter(r => r.id !== id); render(); }
+function eliminarFav(id) { favs = favs.filter(f => f.id !== id); render(); }
 
-function eliminarFav(id) {
-favs = favs.filter(f => f.id !== id);
-render(); 
-}
-
-// Funciones del Modal de Pago Individual
 function abrirModalPago(id, precio, paquete) {
-reservaAPagar = id; // Guardamos qué reservación estamos pagando
+reservaAPagar = id;
 document.getElementById('modal-nombre-paquete').textContent = paquete;
 document.getElementById('modal-total-pago').textContent = `$${precio} USD`;
-document.getElementById('contenedor-tarjetas').innerHTML = tarjetas.map(t => `<label class="box is-shadowless p-3 mb-2 is-clickable is-flex is-align-items-center" style="border: 1px solid #dbdbdb;"><input type="radio" name="tarjeta" value="${t.id}" class="mr-3"><span class="has-text-weight-bold mr-2">Card</span> ${t.num.slice(-4)}<span class="ml-auto has-text-grey is-size-7">Exp: ${t.exp}</span></label>`).join('');
+document.getElementById('contenedor-tarjetas').innerHTML = tarjetas.map(t => `<label class="box is-shadowless p-3 mb-2 is-clickable is-flex is-align-items-center tarjeta-pago-hover"><input type="radio" name="tarjeta" value="${t.id}" class="mr-3"><span class="has-text-weight-bold mr-2 texto-espresso">Card</span> <span class="texto-cafe-oscuro">${t.num.slice(-4)}</span><span class="ml-auto is-size-7 texto-cafe-oscuro">Exp: ${t.exp}</span></label>`).join('');
 document.getElementById('modal-pago').classList.add('is-active');
 }
 
-function cerrarModalPago() { 
-document.getElementById('modal-pago').classList.remove('is-active'); 
-reservaAPagar = null;
-}
+function cerrarModalPago() { document.getElementById('modal-pago').classList.remove('is-active'); reservaAPagar = null; }
+function procesarPago() { res = res.map(r => r.id === reservaAPagar ? { ...r, status: 'Confirmed' } : r); alert("Payment successful! Generating receipt..."); cerrarModalPago(); render(); }
 
-function procesarPago() {
-// Encontramos el viaje y le cambiamos el estatus a "Confirmed"
-res = res.map(r => r.id === reservaAPagar ? { ...r, status: 'Confirmed' } : r);
-alert("Payment successful! Generating receipt...");
-cerrarModalPago();
-render(); // Redibujamos la página para que el botón "Pay" desaparezca y se ponga verde
-}
-
-// 5. Arrancar la página
 render();
 </script>
-
 </body>
 </html>

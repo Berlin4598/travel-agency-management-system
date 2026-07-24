@@ -7,69 +7,135 @@
     <title>Travel Agency</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <header class="has-background-info-light p-4 is-flex is-align-items-center is-justify-content-space-between">
-        <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-        <button class="button is-info is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>Menu</span></button></div>
-
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-            <a href="Main.html" class="dropdown-item">Main Page</a>
-            <a href="Profile.html" class="dropdown-item">Profile</a>
-            <a href="login.html" class="dropdown-item">Log out</a>
-        </div></div></div>
-
-        <div class="is-flex is-align-items-center">
-            <img src="img/" alt="Logo" class="LogoAgencia">
-        </div>
-
-        <a href="Profile.html">
-            <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
-        </a>
-    </header>
+<body class="fondo-crema">
+<header class="p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+    <div class="dropdown is-hoverable">
+    <div class="dropdown-trigger">
+    <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+<span>Menu</span></button></div>
+<div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+    <a href="Main.html" class="dropdown-item">Main Page</a>
+    <a href="Profile.html" class="dropdown-item">Profile</a>
+    <a href="login.html" class="dropdown-item">Log out</a>
+    </div>
+    </div>
+    </div>
+<div class="is-flex is-align-items-center">
+    <img src="img/logo.png" alt="Logo" class="LogoAgencia">
+    </div>
+    <a href="Profile.html">
+    <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
+    </a>
+</header>
 <main class="section">
-<div class="container is-max-desktop">
-<div class="columns is-variable is-6">  
-<div class="column is-7 ColumnaScroll">  
-
-<div class="field mb-5">
-<div class="control">
-<input id="buscador-destinos" name="search" class="input is-medium has-background-info-light" type="text" placeholder="Search destinations...">
-</div>
-</div>
-
-<div id="contenedor-destinos" class="columns is-multiline"> 
-</div></div>
-
-<div class="column is-5">
-<div class="box p-0 CajaCarrusel">
-<div class="CarruselContenedor" id="CarruselAuto">
-<img src="src/Ciudad.jpeg" alt="Ciudad" class="CarruselImg">
-<img src="src/Nevado.jpeg" alt="Nevado" class="CarruselImg">
-<img src="src/Bosque.jpeg" alt="Bosque" class="CarruselImg">
-<img src="src/nuebayol.jpeg" alt="Ciudad2" class="CarruselImg">
-<img src="src/CiudadEuro.jpeg" alt="Lugar" class="CarruselImg">
-</div></div></div>
-
-</div>
+    <div class="container is-max-desktop">
+    <div class="columns is-variable is-6">
+    <div class="column is-7 ColumnaScroll">
+    <div class="field mb-5">
+    <div class="control">
+    <input id="buscador-destinos" name="search" class="input input-boutique is-medium" type="text" placeholder="Search destinations...">
+    </div>
+    </div>
+    <div id="contenedor-destinos" class="columns is-multiline">
+    <!-- destinos -->
+    </div>
+    </div>
+    <div class="column is-5">
+    <div class="box p-5 caja-clima-boutique">
+    <h3 class="title is-4 has-text-centered texto-crema mb-4">Current Weather</h3>
+    <div class="clima-carrusel" id="carrusel-clima">
+    <!-- tarjetas de clima -->
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
 </main>
+<!--Clima Transparente -->
+<div id="modal-clima" class="modal">
+<div class="modal-background" onclick="cerrarModalClima()"></div>
+<div class="modal-content">
+<div class="box modal-clima-transparente p-6 has-text-centered">
+<h3 id="modal-clima-ciudad" class="title is-2 texto-espresso mb-2"></h3>
+<p id="modal-clima-temp" class="title is-1 texto-terracota mb-4"></p>
+<p id="modal-clima-desc" class="is-size-5 texto-cafe-oscuro mb-2 has-text-weight-semibold"></p>
+<p id="modal-clima-humedad" class="is-size-6 texto-cafe-oscuro mb-5"></p>
+<button class="button btn-cafe-solido is-medium" onclick="cerrarModalClima()">Close</button>
+</div>
+</div>
+</div>
 <script>
-// Base feik
-const destinos = [{id:1, img:"src/Balandra.jpg", name:"Balandra Beach", desc:"Famous for its shallow, crystal-clear waters and the 'Mushroom' rock formation.(Baja California Sur, México)"}, {id:2, img:"src/Bora.jpeg", name:"Bora Bora", desc:"The classic luxury destination with bungalows over turquoise waters. (French Polynesia)"}, {id:3, img:"src/Tulum.jpeg", name:"Tulum", desc:"Perfect for showcasing the combination of white sand and Mayan ruins.(Quintana Roo, México)"}, {id:4, img:"src/Navagio.jpeg", name:"Navagio Beach", desc:"Known for the ship beached on the sand, surrounded by towering cliffs.(Zakynthos Island, Greece)"}, {id:5, img:"src/Whiteheaven.jpeg", name:"Whitehaven Beach", desc:"Famous for its swirls of brilliant white sand and blue water.(Australia)"}, {id:6, img:"src/Anse.jpeg", name:"Anse Source d'Argent", desc:"Ideal for showcasing exotic landscapes with giant granite rocks.(Seychelles)"}, {id:7, img:"src/Maya.jpeg", name:"Maya Bay", desc:"A spectacular bay surrounded by green mountains.(Thailand)"}, {id:8, img:"src/Copacabana.jpeg", name:"Copacabana", desc:"Excellent if you want to showcase a beach destination with a vibrant urban atmosphere and plenty of activity.(Rio de Janeiro, Brazil)"}];
+// 1. LÓGICA DE DESTINOS
+const destinos = [
+{id:1, img:"src/Balandra.jpg", name:"Balandra Beach", desc:"Famous for its shallow, crystal-clear waters and the 'Mushroom' rock formation.(Baja California Sur, México)"},
+{id:2, img:"src/Bora.jpeg", name:"Bora Bora", desc:"The classic luxury destination with bungalows over turquoise waters. (French Polynesia)"},
+{id:3, img:"src/Tulum.jpeg", name:"Tulum", desc:"Perfect for showcasing the combination of white sand and Mayan ruins.(Quintana Roo, México)"},
+{id:4, img:"src/Navagio.jpeg", name:"Navagio Beach", desc:"Known for the ship beached on the sand, surrounded by towering cliffs.(Zakynthos Island, Greece)"},
+{id:5, img:"src/Whiteheaven.jpeg", name:"Whitehaven Beach", desc:"Famous for its swirls of brilliant white sand and blue water.(Australia)"},
+{id:6, img:"src/Anse.jpeg", name:"Anse Source d'Argent", desc:"Ideal for showcasing exotic landscapes with giant granite rocks.(Seychelles)"},
+{id:7, img:"src/Maya.jpeg", name:"Maya Bay", desc:"A spectacular bay surrounded by green mountains.(Thailand)"},
+{id:8, img:"src/Copacabana.jpeg", name:"Copacabana", desc:"Excellent if you want to showcase a beach destination with a vibrant urban atmosphere and plenty of activity.(Rio de Janeiro, Brazil)"}
+];
+// Inyección de destinos
+document.getElementById('contenedor-destinos').innerHTML = destinos.map(d => `
+<div class="column is-6">
+<a href="journey.html?id=${d.id}" class="box is-paddingless TarjetaDestino" style="background-color: #FFFFFF; border: 1px solid #DCD3C6; transition: 0.3s;">
+<img src="${d.img}" alt="Place" class="ImagenDestino" style="border-radius: 6px 6px 0 0;">
+<div class="p-3 has-text-centered">
+<p class="texto-cafe-oscuro is-size-7"><strong class="texto-espresso">${d.name}</strong> <br> ${d.desc}</p>
+</div>
+</a>
+</div>
+`).join('');
+// 2. LÓGICA DEL CLIMA (API MOCK)
+const mockClima = [
+{ ciudad: "Balandra Beach", temp: "28°C", desc: "Sunny and clear", humedad: "Humidity: 60%" },
+{ ciudad: "Bora Bora", temp: "30°C", desc: "Tropical breeze", humedad: "Humidity: 75%" },
+{ ciudad: "Tulum", temp: "27°C", desc: "Partly cloudy", humedad: "Humidity: 80%" },
+{ ciudad: "Navagio Beach", temp: "25°C", desc: "Clear skies", humedad: "Humidity: 55%" },
+{ ciudad: "Whitehaven", temp: "26°C", desc: "Sunny", humedad: "Humidity: 65%" }
+];
+function renderizarClima() {
+const contenedor = document.getElementById('carrusel-clima');
+const datosInfinitos = [...mockClima, ...mockClima]; 
+contenedor.innerHTML = datosInfinitos.map((clima, index) => `
+<div class="tarjeta-clima-fila is-flex is-justify-content-space-between is-align-items-center" onclick="abrirModalClima(${index % mockClima.length})">
+<span class="has-text-weight-bold texto-espresso is-size-5">${clima.ciudad}</span>
+<span class="texto-terracota has-text-weight-bold is-size-4">${clima.temp}</span>
+</div>
+`).join('');
+}
+function abrirModalClima(index) {
+const data = mockClima[index];
+document.getElementById('modal-clima-ciudad').innerText = data.ciudad;
+document.getElementById('modal-clima-temp').innerText = data.temp;
+document.getElementById('modal-clima-desc').innerText = data.desc;
+document.getElementById('modal-clima-humedad').innerText = data.humedad;
+document.getElementById('modal-clima').classList.add('is-active');
+}
+function cerrarModalClima() {
+document.getElementById('modal-clima').classList.remove('is-active');
+}
+function iniciarCarruselClima() {
+const contenedor = document.getElementById('carrusel-clima');
+let scrollPos = 0;
+setInterval(() => {
+if (!contenedor.children[0]) return; 
+const alturaTarjeta = contenedor.children[0].offsetHeight + 16;
+scrollPos += alturaTarjeta;
+if (scrollPos >= contenedor.scrollHeight / 2) {
+contenedor.style.scrollBehavior = 'auto';
+contenedor.scrollTop = 0;
+scrollPos = alturaTarjeta;
+setTimeout(() => contenedor.style.scrollBehavior = 'smooth', 50);
+}
+contenedor.scrollTop = scrollPos;
+}, 2500);
+}
 
-// Inyección
-document.getElementById('contenedor-destinos').innerHTML = destinos.map(d => `<div class="column is-6"><a href="journey.html?id=${d.id}" class="box is-paddingless has-background-info-light TarjetaDestino"><img src="${d.img}" alt="Place" class="ImagenDestino"><div class="p-3 has-text-centered"><p class="has-text-dark is-size-7"><strong>${d.name}</strong> ${d.desc}</p></div></a></div>`).join('');
-</script>
-<script>
-const carrusel = document.getElementById('CarruselAuto');
-setInterval(() => {        
-const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth;        
-if (carrusel.scrollLeft >= scrollMaximo - 1) {
-carrusel.scrollLeft = 0;
-} else {
-carrusel.scrollLeft += carrusel.clientWidth;} }, 3000); 
+renderizarClima();
+setTimeout(iniciarCarruselClima, 500);
 </script>
 </body>
 </html>

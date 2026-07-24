@@ -1,97 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <title>Register</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<title>Register - Travel Agency</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header class="has-background-info-light p-4 is-flex is-align-items-center">
-    <img src="" alt="Travel Agency" class="LogoAgencia">
-</header><main class="section">
-    <div class="container is-max-desktop">   
-        <div class="columns is-variable is-8 mt-5">
-            
-            <div class="column is-7 FormularioScroll">
-                <form action="login.html">
-                    
-                    <div class="columns">
-                        <div class="column">
-                            <label for="reg-user" class="label">User</label>
-                            <input id="reg-user" name="username" class="input has-background-info-light" type="text" placeholder="Your User" required>
-                        </div>
-                        <div class="column">
-                            <label for="reg-address" class="label">Address</label>
-                            <input id="reg-address" name="address" class="input has-background-info-light" type="text" placeholder="Your Address" required>
-                        </div>
-                    </div>
-
-                    <div class="columns">
-                        <div class="column">
-                            <label for="reg-firstname" class="label">Name</label>
-                            <input id="reg-firstname" name="first_name" class="input has-background-info-light" type="text" placeholder="Your Name(s)" required>
-                        </div>
-                        <div class="column">
-                            <label for="reg-lastname" class="label">Last Names</label>
-                            <input id="reg-lastname" name="last_name" class="input has-background-info-light" type="text" placeholder="Your Last Name(s)" required>
-                        </div>
-                    </div>
-                                    
-                    <div class="columns">
-                        <div class="column">
-                            <label for="reg-phone" class="label">Phone</label>
-                            <input id="reg-phone" name="phone" class="input has-background-info-light" type="tel" placeholder="Your Phone" required>
-                        </div>
-                        <div class="column">
-                            <label for="reg-email" class="label">Email</label>
-                            <input id="reg-email" name="email" class="input has-background-info-light" type="email" placeholder="Your Email" required>
-                        </div>
-                    </div>
-
-                    <div class="field mt-4">
-                        <label for="reg-password" class="label">Password</label>
-                        <input id="reg-password" name="password" class="input has-background-info-light" type="password" placeholder="********" required>
-                    </div>
-
-                    <div class="field mt-4">
-                        <label for="reg-confirmpassword" class="label">Confirm Password</label>
-                        <input id="reg-confirmpassword" name="confirm_password" class="input has-background-info-light" type="password" placeholder="********" required>
-                    </div>
-
-                    <div class="is-flex is-align-items-center is-justify-content-space-between mt-5">
-                        <p class="is-size-7">You have an account? <strong><a href="login.html" class="has-text-dark">Sign in</a></strong></p>
-                        <button type="submit" class="button is-info">Continue</button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="column is-5">
-                <div class="box p-0 CajaCarrusel">
-                    <div class="CarruselContenedor" id="CarruselAuto">
-                        <img src="src/Viaje1.jpeg" alt="Viaje1" class="CarruselImg">
-                        <img src="src/Viaje2.jpeg" alt="Viaje2" class="CarruselImg">
-                        <img src="src/Vuelo1.jpeg" alt="Vuelo1" class="CarruselImg">
-                        <img src="src/vuelo2.jpeg" alt="Vuelo2" class="CarruselImg">
-                    </div>
-                </div>
-            </div>
-
-        </div> 
-    </div>
+<body class="fondo-crema">
+<header class="p-4 is-flex is-align-items-center headercf">
+<img src="img/logo.png" alt="Travel Agency" class="LogoAgencia">
+</header>
+<main class="section">
+<div class="container is-max-desktop">
+<div class="columns is-variable is-8 mt-5">
+<div class="column is-7 FormularioScroll">
+<form action="login.html">
+<div class="columns">
+<div class="column">
+<label for="reg-user" class="label texto-espresso">User</label>
+<input id="reg-user" name="username" class="input input-boutique" type="text" placeholder="Your User" required>
+</div>
+<div class="column">
+<label for="reg-address" class="label texto-espresso">Address</label>
+<input id="reg-address" name="address" class="input input-boutique" type="text" placeholder="Your Address" required>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<label for="reg-firstname" class="label texto-espresso">Name</label>
+<input id="reg-firstname" name="first_name" class="input input-boutique" type="text" placeholder="Your Name(s)" required>
+</div>
+<div class="column">
+<label for="reg-lastname" class="label texto-espresso">Last Names</label>
+<input id="reg-lastname" name="last_name" class="input input-boutique" type="text" placeholder="Your Last Name(s)" required>
+</div>
+</div>
+<div class="columns">
+<div class="column">
+<label for="reg-phone" class="label texto-espresso">Phone</label>
+<input id="reg-phone" name="phone" class="input input-boutique" type="tel" placeholder="Your Phone" required>
+</div>
+<div class="column">
+<label for="reg-email" class="label texto-espresso">Email</label>
+<input id="reg-email" name="email" class="input input-boutique" type="email" placeholder="Your Email" required>
+</div>
+</div>
+<div class="field mt-4">
+<label for="reg-password" class="label texto-espresso">Password</label>
+<input id="reg-password" name="password" class="input input-boutique" type="password" placeholder="********" required>
+</div>
+<div class="field mt-4">
+<label for="reg-confirmpassword" class="label texto-espresso">Confirm Password</label>
+<input id="reg-confirmpassword" name="confirm_password" class="input input-boutique" type="password" placeholder="********" required>
+</div>
+<div class="is-flex is-align-items-center is-justify-content-space-between mt-5">
+<p class="is-size-7 texto-cafe-oscuro">You have an account? <strong><a href="login.html" class="texto-terracota">Sign in</a></strong></p>
+<button type="submit" class="button btn-cafe-solido">Continue</button>
+</div>
+</form>
+</div>
+<div class="column is-5">
+<div class="box p-0 caja-carrusel-boutique">
+<div class="CarruselContenedor" id="CarruselAuto">
+<img src="src/Viaje1.jpeg" alt="Viaje1" class="CarruselImg">
+<img src="src/Viaje2.jpeg" alt="Viaje2" class="CarruselImg">
+<img src="src/Vuelo1.jpeg" alt="Vuelo1" class="CarruselImg">
+<img src="src/vuelo2.jpeg" alt="Vuelo2" class="CarruselImg">
+</div>
+</div>
+</div>
+</div></div>
 </main>
-
 <script>
-    const carrusel = document.getElementById('CarruselAuto');
-    setInterval(() => {        
-        const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth;        
-        if (carrusel.scrollLeft >= scrollMaximo - 1) {
-            carrusel.scrollLeft = 0;
-        } else {
-            carrusel.scrollLeft += carrusel.clientWidth;
-        } 
-    }, 3000); 
+const carrusel = document.getElementById('CarruselAuto');
+setInterval(() => { const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth; if (carrusel.scrollLeft >= scrollMaximo - 1) { carrusel.scrollLeft = 0; } else { carrusel.scrollLeft += carrusel.clientWidth; } }, 3000); 
 </script>
 </body>
 </html>

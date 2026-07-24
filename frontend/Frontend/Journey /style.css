@@ -1,3 +1,336 @@
+body {
+    background-color: #F5F2EA;
+}
+
+.tarjeta-personalizada {
+    background-color: #DCD3C6;
+    color: #2A211C;
+}
+
+.boton-personalizado {
+    background-color: #4A3B32;
+    color: white;
+}
+.headercf {
+    background-color: #9c7f6c;
+    color: white;
+}
+.btnCafe.is-outlined {
+    border-color: #4A3B32;
+    color: #4A3B32;
+}
+
+.btnCafe.is-outlined:hover {
+    background-color: #4A3B32;
+    color: #F5F2EA;
+}
+#contenedor-destinos .box {
+    border: 2px solid #DCD3C6; 
+    box-shadow: 0 4px 6px rgba(74, 59, 50, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+#contenedor-destinos .box:hover {
+    border-color: #4A3B32; 
+}
+.ColumnaScroll::-webkit-scrollbar {
+    width: 12px;
+}
+
+.ColumnaScroll::-webkit-scrollbar-track {
+    background: #F5F2EA; 
+    border-radius: 10px;
+}
+
+.ColumnaScroll::-webkit-scrollbar-thumb {
+    background: #DCD3C6; 
+    border-radius: 10px;
+    border: 3px solid #F5F2EA; 
+}
+
+.ColumnaScroll::-webkit-scrollbar-thumb:hover {
+    background: #42352c;
+}
+
+.fondo-crema { background-color: #F5F2EA; }
+.texto-crema { color: #F5F2EA !important; }
+.texto-espresso { color: #2A211C !important; }
+.texto-cafe-oscuro { color: #4A3B32 !important; }
+.texto-terracota { color: #E07A5F !important; }
+
+.perfil-banner-boutique {
+    background: linear-gradient(135deg, #4A3B32 0%, #2A211C 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(42, 33, 28, 0.15);
+    border: none;
+}
+
+.caja-favoritos-boutique {
+    background-color: #DCD3C6;
+    border-radius: 12px;
+    border: 1px solid #C4B7A6;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.tarjeta-reservacion {
+    border: 1px solid #DCD3C6;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: #FFFFFF;
+}
+
+.tarjeta-reservacion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(74, 59, 50, 0.1);
+    border-color: #4A3B32;
+}
+
+.item-favorito {
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    background-color: #F9F6F0 !important;
+}
+
+.item-favorito:hover {
+    border-color: #4A3B32;
+    transform: translateX(4px); 
+}
+
+.status-confirmed { color: #2A9D8F; } 
+.status-pending { color: #D4A373; }  
+.status-canceled { color: #E07A5F; }  
+
+
+.btn-cafe-solido {
+    background-color: #4A3B32;
+    color: #F5F2EA;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-cafe-solido:hover {
+    background-color: #2A211C;
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-eliminar {
+    background-color: transparent;
+    color: #E07A5F;
+    border: 1px solid #E07A5F;
+    transition: all 0.2s ease;
+}
+
+.btn-eliminar:hover {
+    background-color: #E07A5F;
+    color: white;
+}
+
+.btn-estrella {
+    background-color: transparent !important;
+    color: #D4A373;
+    border: none;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-estrella:hover {
+    transform: scale(1.2); 
+    color: #E07A5F;
+}
+
+.btn-cancelar {
+    background-color: #DCD3C6;
+    color: #2A211C;
+    border: none;
+}
+
+.btn-cancelar:hover {
+    background-color: #C4B7A6;
+}
+
+
+.modal-boutique {
+    background-color: #F9F6F0; 
+    border-radius: 12px;
+    border: 2px solid #DCD3C6;
+}
+
+.tarjeta-pago-hover {
+    transition: border-color 0.2s ease;
+}
+.tarjeta-pago-hover:hover {
+    border-color: #4A3B32 !important;
+}
+
+.caja-info-boutique {
+    background-color: #F9F6F0; 
+    border: 1px solid #DCD3C6;
+    border-radius: 12px;
+    padding: 2rem; 
+}
+
+.tarjeta-paquete {
+    background-color: #FFFFFF;
+    border: 1px solid #DCD3C6;
+    border-radius: 12px;
+    padding: 1.8rem 1.2rem; 
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+
+.tarjeta-paquete:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(74, 59, 50, 0.12);
+    border-color: #4A3B32;
+}
+
+.info-paquete {
+    background-color: #F5F2EA;
+    padding: 0.8rem;
+    border-radius: 8px;
+    line-height: 1.8; 
+}
+
+.descripcion-paquete {
+    line-height: 1.6;
+    margin-top: auto; 
+    padding-top: 10px;
+}
+
+.input-boutique {
+    background-color: #FFFFFF;
+    border: 2px solid #DCD3C6; 
+    color: #2A211C; 
+    border-radius: 8px;
+    box-shadow: none;
+    transition: all 0.3s ease;
+}
+
+.input-boutique::placeholder {
+    color: #C4B7A6;
+}
+
+
+.input-boutique:focus, .input-boutique:hover {
+    border-color: #4A3B32; 
+    box-shadow: 0 0 0 0.125em rgba(74, 59, 50, 0.25); 
+}
+
+.caja-centrada-boutique {
+    background-color: #F9F6F0; 
+    border: 1px solid #DCD3C6;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(74, 59, 50, 0.15);
+}
+
+input[type="month"].input-boutique::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+
+input[type="month"].input-boutique::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.caja-clima-boutique {
+    background-color: #4A3B32;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(42, 33, 28, 0.15);
+}
+
+.clima-carrusel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: hidden; 
+    height: 290px; 
+    scroll-behavior: smooth; 
+    overflow: hidden;
+}
+.clima-carrusel::-webkit-scrollbar {
+    display: none;
+}
+
+.tarjeta-clima-fila {
+    background-color: #F9F6F0; 
+    border-radius: 8px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    border: 2px solid transparent;
+}
+
+.tarjeta-clima-fila:hover {
+    transform: scale(1.02);
+    border-color: #DCD3C6; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+
+.modal-clima-transparente {
+    background-color: rgba(249, 246, 240, 0.85);
+    backdrop-filter: blur(6px); 
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid #DCD3C6;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+#buscador-destinos {
+    border-radius: 30px; 
+    border: 2px solid #DCD3C6;
+    box-shadow: 0 4px 10px rgba(74, 59, 50, 0.05); 
+    padding-left: 1.5rem;
+    background-color: #F9F6F0; 
+    color: #2A211C;
+    transition: all 0.3s ease;
+}
+
+#buscador-destinos::placeholder {
+    color: #C4B7A6;
+}
+
+#buscador-destinos:focus {
+    background-color: #FFFFFF;
+    border-color: #4A3B32; 
+    box-shadow: 0 6px 15px rgba(74, 59, 50, 0.12);
+}
+
+.caja-carrusel-boutique {
+border-radius: 16px;
+overflow: hidden; 
+border: 2px solid #DCD3C6;
+box-shadow: 0 10px 30px rgba(74, 59, 50, 0.15); 
+height: 100%;
+min-height: 550px; 
+}
+.CarruselContenedor {
+display: flex;
+width: 100%;
+height: 100%;
+overflow-x: hidden; 
+scroll-behavior: smooth;
+}
+.CarruselContenedor::-webkit-scrollbar {
+display: none; 
+}
+.CarruselImg {
+width: 100%;
+height: 100%;
+object-fit: cover; 
+flex-shrink: 0;
+}
+
+.FormularioScroll::-webkit-scrollbar {
+display: none;
+}
+
 .LogoAgencia{
     height: 40px; 
     margin-right: 15px;
