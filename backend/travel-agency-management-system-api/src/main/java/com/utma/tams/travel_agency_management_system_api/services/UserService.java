@@ -3,6 +3,7 @@ package com.utma.tams.travel_agency_management_system_api.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.utma.tams.travel_agency_management_system_api.exception.ResourceNotFoundException;
@@ -15,9 +16,12 @@ import com.utma.tams.travel_agency_management_system_api.repository.UserReposito
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository){
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
 
     }
 
@@ -46,8 +50,8 @@ public class UserService {
                 userRequestDTO.getLastName(),
                 userRequestDTO.getPhone(),
                 userRequestDTO.getEmail(),
-            userRequestDTO.getPassword(),
-            userRequestDTO.getAddress()
+                passwordEncoder.encode(userRequestDTO.getPassword()),
+                userRequestDTO.getAddress()
         );
         if (userRequestDTO.getEmail().contains("@travelagency.com")) {
             user.setRole("ADMIN");
@@ -66,7 +70,7 @@ public class UserService {
         user.setAddress(userRequestDTO.getAddress());
         user.setEmail(userRequestDTO.getEmail());
         user.setPhone(userRequestDTO.getPhone());
-        user.setPassword(userRequestDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userRequestDTO.getPassword()));
 
         if (userRequestDTO.getEmail().contains("@travelagency.com") && user.getRole().equals("USER")) {
             user.setRole("ADMIN");
