@@ -35,8 +35,8 @@ public class Destination {
     @OneToMany(mappedBy = "destination")
     private List<TravelPackage> travelPackages;
 
-    @ManyToMany(mappedBy = "favDestinations")
-    private List<User> userFavs;
+        @ManyToMany(mappedBy = "favDestinations")
+        private List<User> userFavs;
 
 
     public Destination(){

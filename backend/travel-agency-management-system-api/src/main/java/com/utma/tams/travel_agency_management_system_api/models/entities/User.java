@@ -143,6 +143,16 @@ public class User {
         this.role = role;
     }
 
+    
+
+    public List<Destination> getFavDestinations() {
+        return favDestinations;
+    }
+
+    public void setFavDestinations(List<Destination> favDestinations) {
+        this.favDestinations = favDestinations;
+    }
+
     @Override
     public String toString() {
         return "ID: " + getId() + " | First Name: " + getFirstName() + " | Last Name: " + getLastName() + " | Phone: " + getPhone() + " | Email: " + getEmail() + " | Address: " + getAddress() + " | ROLE: " + getRole();
