@@ -42,8 +42,8 @@ public class CardService {
         return toResponseDTO(findById(id));
     }
 
-    public CardResponseDTO createCard(CardRequestDTO requestDTO, Long userId){
-        User user = userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+    public CardResponseDTO createCard(CardRequestDTO requestDTO, String email){
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User not found"));
 
         LocalDate expirationDate = YearMonth.parse(requestDTO.getExpirationDate()).atDay(1);
 
@@ -76,6 +76,16 @@ public class CardService {
         }
         return cardRepository.findByUserId(userId).stream()
         .map(this::toResponseDTO).collect(Collectors.toList());
+    }
+
+    public List<CardResponseDTO> getMyCards(String email){
+        var user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+
+        return cardRepository.findByUserId(user.getId())
+        .stream()
+        .map(this :: toResponseDTO)
+        .collect(Collectors.toList());
+
     }
 
 

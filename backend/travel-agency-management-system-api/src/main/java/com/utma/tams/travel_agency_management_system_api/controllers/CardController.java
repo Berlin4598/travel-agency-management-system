@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +43,9 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<CardResponseDTO> createCard(@RequestBody @Valid CardRequestDTO requestDTO, @RequestParam (required = true) Long userId){
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(requestDTO, userId));
+    public ResponseEntity<CardResponseDTO> createCard(@RequestBody @Valid CardRequestDTO requestDTO, @AuthenticationPrincipal UserDetails userDetails){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.createCard(requestDTO, userDetails.getUsername()
+    ));
     }
 
     @PutMapping("/{id}")
@@ -59,6 +62,11 @@ public class CardController {
     @GetMapping("/user")
     public ResponseEntity<List<CardResponseDTO>> findUserCards(@RequestParam Long userId){
         return ResponseEntity.ok(cardService.findUserCards(userId));
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<CardResponseDTO>> getMyCards(@AuthenticationPrincipal UserDetails userDetails){
+        return ResponseEntity.ok(cardService.getMyCards(userDetails.getUsername()));
     }
 
 
