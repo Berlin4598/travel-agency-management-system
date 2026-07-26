@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -42,8 +44,8 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody @Valid ReservationRequestDTO requestDTO,@RequestParam Long id){
-        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.createReservation(requestDTO, id));
+    public ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody @Valid ReservationRequestDTO requestDTO,@AuthenticationPrincipal UserDetails userDetails){
+        return ResponseEntity.status(HttpStatus.CREATED).body(reservationService.createReservation(requestDTO, userDetails.getUsername()));
     }
 
     @PutMapping("/{id}")
@@ -72,5 +74,9 @@ public class ReservationController {
         return ResponseEntity.ok(reservationService.getUserReservations(id));
     }
 
+    @GetMapping("/my")
+    public ResponseEntity<List<ReservationResponseDTO>> getMyReservations(@AuthenticationPrincipal UserDetails userDetails){
+        return ResponseEntity.ok(reservationService.getMyReservations(userDetails.getUsername()));
+    }
     
 }

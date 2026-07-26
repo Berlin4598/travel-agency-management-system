@@ -64,9 +64,9 @@ public class ReservationService {
         return toResponseDTO(findById(id));
     }
 
-    public ReservationResponseDTO createReservation(ReservationRequestDTO requestDTO, Long id){
+    public ReservationResponseDTO createReservation(ReservationRequestDTO requestDTO, String email){
         LocalDate date = LocalDate.now();
-        User user = userRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User not found"));
         Guide guide = guideRepository.findById(requestDTO.getGuideId()).orElseThrow(()-> new ResourceNotFoundException("Guide not found"));
         TravelPackage travelPackage = travelPackageRepository.findById(requestDTO.getTravelPackageId()).orElseThrow(()-> new ResourceNotFoundException("TravelPackage not found"));
 
@@ -134,6 +134,15 @@ public class ReservationService {
         }
         return reservationRepository.findByUserId(id).stream()
         .map(this::toResponseDTO).collect(Collectors.toList());
+    }
+
+    public List<ReservationResponseDTO> getMyReservations(String email){
+        var user = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User not found"));
+
+        return reservationRepository.findByUserId(user.getId())
+        .stream()
+        .map(this :: toResponseDTO)
+        .collect(Collectors.toList());
     }
 
 
