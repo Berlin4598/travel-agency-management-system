@@ -16,6 +16,8 @@ public class DestinationRequestDTO {
     @Size(max = 200, message = "Description must be up to 200 characters long.")
     private String description;
 
+    private String imageUrl;
+
 
     public DestinationRequestDTO(String city, String country, String description){
         this.city = city;
@@ -52,6 +54,16 @@ public class DestinationRequestDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    
 
     
 }

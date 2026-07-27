@@ -2,14 +2,18 @@ package com.utma.tams.travel_agency_management_system_api.models.dto.response;
 
 public class DestinationResponseDTO {
 
+    private Long id;
     private String city;
     private String country;
     private String description;
+    private String imageUrl;
 
-    public DestinationResponseDTO(String city, String country, String description){
+    public DestinationResponseDTO(Long id, String city, String country, String description, String imageUrl){
+        this.id = id;
         this.city = city;
         this.country = country;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public DestinationResponseDTO(){
@@ -39,6 +43,26 @@ public class DestinationResponseDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+ 
+    
 
     
 }

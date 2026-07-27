@@ -30,23 +30,26 @@ public class Destination {
     @Column(length = 200, nullable = true, name = "description")
     private String description;
 
-    //Relationships
+    @Column(name = "image_url", length = 255)
+    private String imageUrl;
+
+    // Relationships
 
     @OneToMany(mappedBy = "destination")
     private List<TravelPackage> travelPackages;
 
-        @ManyToMany(mappedBy = "favDestinations")
-        private List<User> userFavs;
+    @ManyToMany(mappedBy = "favDestinations")
+    private List<User> userFavs;
 
-
-    public Destination(){
+    public Destination() {
 
     }
 
-    public Destination(String city, String country, String description){
+    public Destination(String city, String country, String description, String imageUrl) {
         this.city = city;
         this.country = country;
         this.description = description;
+        this.imageUrl = imageUrl;
     }
 
     public Long getId() {
@@ -82,9 +85,18 @@ public class Destination {
     }
 
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
-        return "DestinationID: " + getId() + " | City: " + getCity() + " | Country: " + getCountry() + " | Description: " + getDescription();
+        return "DestinationID: " + getId() + " | City: " + getCity() + " | Country: " + getCountry()
+                + " | Description: " + getDescription();
     }
-    
+
 }
