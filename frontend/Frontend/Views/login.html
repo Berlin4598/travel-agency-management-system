@@ -1,51 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<title>Login - Travel Agency</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Login - Travel Agency</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="fondo-crema">
-<header class="p-4 is-flex is-align-items-center headercf">
-<img src="img/logo.png" alt="Travel Agency" class="LogoAgencia">
-</header>
-<main class="section">
-<div class="container is-max-desktop">
-<div class="columns is-variable is-8 mt-5">
-<div class="column is-7">
-<form action="Main.html">
-<div class="field mb-4">
-<label for="login-email" class="label texto-espresso">Email</label>
-<div class="control">
-<input id="login-email" name="email" class="input input-boutique" type="email" placeholder="email@example.com" required>
-</div></div>
-<div class="field mb-5">
-<label for="login-password" class="label texto-espresso">Password</label>
-<div class="control">
-<input id="login-password" name="password" class="input input-boutique" type="password" placeholder="********" required>
-</div></div>
-<div class="is-flex is-align-items-center is-justify-content-space-between mt-5">
-<p class="is-size-7 texto-cafe-oscuro">You don't have an account? <strong><a href="register.html" class="texto-terracota">Create one</a></strong></p>
-<button type="submit" class="button btn-cafe-solido">Continue</button>
-</div>
-</form></div>
-<div class="column is-5">
-<div class="box p-0 caja-carrusel-boutique">
-<div class="CarruselContenedor" id="CarruselAuto">
-<img src="src/Viaje1.jpeg" alt="Viaje1" class="CarruselImg">
-<img src="src/Viaje2.jpeg" alt="Viaje2" class="CarruselImg">
-<img src="src/Vuelo1.jpeg" alt="Vuelo1" class="CarruselImg">
-<img src="src/vuelo2.jpeg" alt="Vuelo2" class="CarruselImg">
-</div>
-</div>
-</div>
-</div></div>
-</main>
-<script>
-const carrusel = document.getElementById('CarruselAuto');
-setInterval(() => { const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth; if (carrusel.scrollLeft >= scrollMaximo - 1) { carrusel.scrollLeft = 0; } else { carrusel.scrollLeft += carrusel.clientWidth; } }, 3000); 
-</script>
+    <header class="p-4 is-flex is-align-items-center headercf">
+        <img src="img/logo.png" alt="Travel Agency" class="LogoAgencia">
+    </header>
+    <main class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-variable is-8 mt-5">
+                <div class="column is-7">
+                    <form id="loginForm">
+                        <div class="field mb-4">
+                            <label for="login-email" class="label texto-espresso">Email</label>
+                            <div class="control">
+                                <input id="login-email" name="email" class="input input-boutique" type="email"
+                                    placeholder="email@example.com" required>
+                            </div>
+                        </div>
+                        <div class="field mb-5">
+                            <label for="login-password" class="label texto-espresso">Password</label>
+                            <div class="control">
+                                <input id="login-password" name="password" class="input input-boutique" type="password"
+                                    placeholder="********" required>
+                            </div>
+                        </div>
+                        <div class="is-flex is-align-items-center is-justify-content-space-between mt-5">
+                            <p class="is-size-7 texto-cafe-oscuro">You don't have an account? <strong><a
+                                        href="register.html" class="texto-terracota">Create one</a></strong></p>
+                            <button type="submit" class="button btn-cafe-solido">Continue</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="column is-5">
+                    <div class="box p-0 caja-carrusel-boutique">
+                        <div class="CarruselContenedor" id="CarruselAuto">
+                            <img src="src/Viaje1.jpeg" alt="Viaje1" class="CarruselImg">
+                            <img src="src/Viaje2.jpeg" alt="Viaje2" class="CarruselImg">
+                            <img src="src/Vuelo1.jpeg" alt="Vuelo1" class="CarruselImg">
+                            <img src="src/vuelo2.jpeg" alt="Vuelo2" class="CarruselImg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const carrusel = document.getElementById('CarruselAuto');
+        setInterval(() => { 
+            const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth; 
+            
+            if (carrusel.scrollLeft >= scrollMaximo - 1) { 
+                carrusel.scrollLeft = 0; 
+            } else { 
+                carrusel.scrollLeft += carrusel.clientWidth; 
+            }  
+        }, 3000);
+
+        // Login
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            try {
+                const response = await fetch ('http://localhost:8080/api/auth/login',{
+                    method : 'POST',
+                    headers : { 'Content-Type' : 'application/json'},
+                    body : JSON.stringify({email, password })
+                });
+
+                if(response.ok){
+                    const data = await response.json();
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
+                    localStorage.setItem('email', data.email);
+                    window.location.href = 'Main.html';
+                } else {
+                    alert ('Incorrect email or password')
+                }
+
+            } catch (error) {
+                alert('Error conecting to server')
+            }
+        })
+        
+        
+    </script>
 </body>
+
 </html>
