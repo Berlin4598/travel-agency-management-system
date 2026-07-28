@@ -256,22 +256,6 @@ input[type="month"].input-boutique::-webkit-calendar-picker-indicator:hover {
     display: none;
 }
 
-.tarjeta-clima-fila {
-    background-color: #F9F6F0; 
-    border-radius: 8px;
-    padding: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-    border: 2px solid transparent;
-}
-
-.tarjeta-clima-fila:hover {
-    transform: scale(1.02);
-    border-color: #DCD3C6; 
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
 
 .modal-clima-transparente {
     background-color: rgba(249, 246, 240, 0.85);
@@ -626,3 +610,66 @@ display: none;
     position: relative;
     z-index: 1; /* ← el texto queda encima del gradiente */
 }
+/* Journey - clima 7 días */
+.tarjeta-clima-fila {
+    background-color: #F9F6F0;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid #DCD3C6;
+    flex-shrink: 0;
+}
+
+.tarjeta-clima-fila:hover {
+    transform: translateX(4px);
+    border-color: #4A3B32;
+    box-shadow: 0 4px 10px rgba(74,59,50,0.1);
+}
+
+/* Scroll suave en el carrusel de pronóstico */
+#carrusel-pronostico {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 380px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+#carrusel-pronostico::-webkit-scrollbar {
+    width: 4px;
+}
+
+#carrusel-pronostico::-webkit-scrollbar-thumb {
+    background-color: #DCD3C6;
+    border-radius: 4px;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    background-color: #2A211C;
+    color: #F5F2EA;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success { border-left: 4px solid #2A9D8F; }
+.toast.error   { border-left: 4px solid #E07A5F; }
+.toast.info    { border-left: 4px solid #D4A373; }
