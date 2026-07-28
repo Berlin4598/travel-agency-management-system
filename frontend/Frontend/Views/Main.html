@@ -86,7 +86,8 @@
                 document.getElementById('contenedor-destinos').innerHTML = destinos.map(d => `
             <div class="column is-6">
                 <div class="box is-paddingless TarjetaDestino"
-                     style="background-color:#FFFFFF;border:1px solid #DCD3C6;transition:.3s;cursor:pointer;">
+                     style="background-color:#FFFFFF;border:1px solid #DCD3C6;transition:.3s;cursor:pointer;"
+                     onclick="window.location.href='journey.html?id=${d.id}'">
                     <img src="${d.imageUrl}" alt="${d.city}" class="ImagenDestino" Loading ="lazy"
                          style="border-radius:6px 6px 0 0;">
                     <div class="p-3 has-text-centered">
