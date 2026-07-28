@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,23 @@
     <title>Travel Agency - Profile</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="fondo-crema">
-<header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
-        <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-        <button class="button btnCafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>Menu</span></button></div>
 
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-            <a href="Main.html" class="dropdown-item">Main Page</a>
-            
-            <a href="login.html" class="dropdown-item">Log out</a>
-        </div></div></div>
+<body class="fondo-crema">
+    <header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+        <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+                <button class="button btnCafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>Menu</span></button>
+            </div>
+
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <a href="Main.html" class="dropdown-item">Main Page</a>
+
+                    <a href="login.html" class="dropdown-item">Log out</a>
+                </div>
+            </div>
+        </div>
 
         <div class="is-flex is-align-items-center">
             <img src="img/" alt="Logo" class="LogoAgencia">
@@ -30,102 +35,254 @@
         </a>
     </header>
 
-<main class="section">
-<div class="container is-max-desktop">
-<div class="columns is-variable is-6 mt-4">
+    <main class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-variable is-6 mt-4">
 
-<!-- COLUMNA IZQUIERDA -->
-<div class="column is-7">
-<div class="box perfil-banner-boutique is-flex is-align-items-center mb-5">
-<img src="src/Usuario.jpg" alt="Icono de Usuario" class="icono-usuario">
-<h2 id="nombre-usuario" class="title is-3 ml-4 mb-0 texto-crema"></h2>
-</div>
+                <!-- COLUMNA IZQUIERDA -->
+                <div class="column is-7">
+                    <div class="box perfil-banner-boutique is-flex is-align-items-center mb-5">
+                        <img src="src/Usuario.jpg" alt="Icono de Usuario" class="icono-usuario">
+                        <h2 id="nombre-usuario" class="title is-3 ml-4 mb-0 texto-crema"></h2>
+                    </div>
 
-<h3 class="title is-4 mb-3 texto-espresso">Reservations</h3>
-<div id="contenedor-reservaciones" class="reservaciones-scroll mb-3">
-</div>
-</div>
+                    <h3 class="title is-4 mb-3 texto-espresso">Reservations</h3>
+                    <div id="contenedor-reservaciones" class="reservaciones-scroll mb-3">
+                    </div>
+                </div>
 
-<!-- COLUMNA DERECHA -->
-<div class="column is-5">
-<div class="box caja-favoritos-boutique favoritos-sticky">
-<h3 class="title is-4 has-text-centered mb-4 texto-espresso">Favorite places</h3>
-<ul id="lista-favoritos-dinamica"></ul>
-</div>
-</div>
+                <!-- COLUMNA DERECHA -->
+                <div class="column is-5">
+                    <div class="box caja-favoritos-boutique favoritos-sticky">
+                        <h3 class="title is-4 has-text-centered mb-4 texto-espresso">Favorite places</h3>
+                        <ul id="lista-favoritos-dinamica"></ul>
+                    </div>
+                </div>
 
-</div></div>
-</main>
+            </div>
+        </div>
+    </main>
 
-<!-- MODAL -->
-<div id="modal-pago" class="modal">
-<div class="modal-background" onclick="cerrarModalPago()"></div>
-<div class="modal-content">
-<div class="box modal-boutique p-5">
-<h3 class="title is-4 has-text-centered mb-2 texto-espresso">Select Payment Method</h3>
-<p class="has-text-centered mb-4 texto-cafe-oscuro">Paying for: <strong id="modal-nombre-paquete" class="texto-espresso"></strong><br>Total to pay: <strong id="modal-total-pago" class="texto-terracota"></strong></p>
+    <!-- MODAL -->
+    <div id="modal-pago" class="modal">
+        <div class="modal-background" onclick="cerrarModalPago()"></div>
+        <div class="modal-content">
+            <div class="box modal-boutique p-5">
+                <h3 class="title is-4 has-text-centered mb-2 texto-espresso">Select Payment Method</h3>
+                <p class="has-text-centered mb-4 texto-cafe-oscuro">Paying for: <strong id="modal-nombre-paquete"
+                        class="texto-espresso"></strong><br>Total to pay: <strong id="modal-total-pago"
+                        class="texto-terracota"></strong></p>
 
-<div id="contenedor-tarjetas"></div>
+                <div id="contenedor-tarjetas"></div>
 
-<a href="CreditCard.html" class="button btn-cafe is-outlined is-small is-fullwidth mb-4">+ Add new card</a>
-<div class="buttons is-centered mt-4">
-<button class="button btn-cancelar" onclick="cerrarModalPago()">Cancel</button>
-<button class="button btn-cafe-solido" onclick="procesarPago()">Confirm Payment</button>
-</div>
-</div>
-</div>
-</div>
+                <a href="CreditCard.html" class="button btn-cafe is-outlined is-small is-fullwidth mb-4">+ Add new
+                    card</a>
+                <div class="buttons is-centered mt-4">
+                    <button class="button btn-cancelar" onclick="cerrarModalPago()">Cancel</button>
+                    <button class="button btn-cafe-solido" onclick="procesarPago()">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-const user = { first_name: "Lupita", last_name: "Tiktok" };
-let res = [{ id: 101, date: "2026-10-15", ppl: 2, status: "Confirmed", pkg: "Balandra Beach Package", price: 1250 }, { id: 102, date: "2026-11-02", ppl: 1, status: "Pending", pkg: "Tokyo City Tour", price: 800 }, { id: 103, date: "2026-12-10", ppl: 2, status: "Canceled", pkg: "Tulum Getaway", price: 950 }];
-let favs = [{ id: 1, name: "Bora Bora Resort", link: "journey.html?id=1" }, { id: 2, name: "Tulum Ruins", link: "journey.html?id=2" }];
-const tarjetas = [{ id: 1, num: "**** **** **** 1234", exp: "12/28" }, { id: 2, num: "**** **** **** 5678", exp: "09/27" }];
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = 'login.html';
 
-let reservaAPagar = null; 
+        let reservaAPagar = null;
 
-function render() {
-document.getElementById('nombre-usuario').textContent = `${user.first_name} ${user.last_name}`;
+        async function cargarPerfil() {
+            const response = await fetch('http://localhost:8080/api/users/my', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const user = await response.json();
+            document.getElementById('nombre-usuario').textContent = `${user.firstName} ${user.lastName}`;
+        }
 
-document.getElementById('contenedor-reservaciones').innerHTML = res.map(r => {
-let statusColor = r.status === 'Pending' ? 'status-pending' : (r.status === 'Confirmed' ? 'status-confirmed' : 'status-canceled');
-let btnPagar = r.status === 'Pending' ? `<button class="button is-small btn-cafe-solido mr-2" onclick="abrirModalPago(${r.id}, ${r.price}, '${r.pkg}')">Pay</button>` : '';
+        async function cargarReservaciones() {
+            const response = await fetch('http://localhost:8080/api/reservations/my', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const reservaciones = await response.json();
 
-return `<div class="box tarjeta-reservacion is-shadowless mb-3 p-4 is-flex is-justify-content-space-between is-align-items-center">
-<div>
-<p class="has-text-weight-bold is-size-5 texto-espresso">${r.pkg}</p>
-<p class="is-size-7 texto-cafe-oscuro mb-1">${r.ppl} Adults - ${r.date}</p>
-<p class="is-size-7 has-text-weight-bold ${statusColor}">${r.status} - $${r.price} USD</p>
-</div>
-<div class="is-flex is-align-items-center">
-${btnPagar}
-<button class="button is-small btn-eliminar" onclick="eliminarReserva(${r.id})" title="Delete Reservation">✖</button>
-</div>
-</div>`;
-}).join('');
+            if (reservaciones.length === 0) {
+                document.getElementById('contenedor-reservaciones').innerHTML = `
+            <div class="has-text-centered py-5">
+                <p class="is-size-1 mb-2">✈️</p>
+                <p class="texto-cafe-oscuro">You don't have any reservations yet.</p>
+            </div>`;
+                return;
+            }
 
-if(favs.length > 0) {
-document.getElementById('lista-favoritos-dinamica').innerHTML = favs.map(f => `<li class="mb-2 box item-favorito p-3 is-shadowless is-flex is-justify-content-space-between is-align-items-center"><a href="${f.link}" class="has-text-weight-semibold texto-espresso">${f.name}</a><button class="button is-small btn-estrella" onclick="eliminarFav(${f.id})" title="Remove">★</button></li>`).join('');
-} else {
-document.getElementById('lista-favoritos-dinamica').innerHTML = `<div class="has-text-centered py-5"><p class="is-size-1 mb-2">🏝️</p><p class="texto-cafe-oscuro">You don't have any favorite places yet. Explore our destinations!</p></div>`;
-}
-}
+            const ordenadas = reservaciones.sort((a, b) => {
+                const orden = { 'PENDING': 0, 'CONFIRMED': 1, 'CANCELED': 2 };
+                return orden[a.reservationStatus] - orden[b.reservationStatus];
+            });
 
-function eliminarReserva(id) { res = res.filter(r => r.id !== id); render(); }
-function eliminarFav(id) { favs = favs.filter(f => f.id !== id); render(); }
+            document.getElementById('contenedor-reservaciones').innerHTML = reservaciones.map(r => {
+                let statusColor = r.reservationStatus === 'PENDING' ? 'status-pending'
+                    : (r.reservationStatus === 'CONFIRMED' ? 'status-confirmed' : 'status-canceled');
 
-function abrirModalPago(id, precio, paquete) {
-reservaAPagar = id;
-document.getElementById('modal-nombre-paquete').textContent = paquete;
-document.getElementById('modal-total-pago').textContent = `$${precio} USD`;
-document.getElementById('contenedor-tarjetas').innerHTML = tarjetas.map(t => `<label class="box is-shadowless p-3 mb-2 is-clickable is-flex is-align-items-center tarjeta-pago-hover"><input type="radio" name="tarjeta" value="${t.id}" class="mr-3"><span class="has-text-weight-bold mr-2 texto-espresso">Card</span> <span class="texto-cafe-oscuro">${t.num.slice(-4)}</span><span class="ml-auto is-size-7 texto-cafe-oscuro">Exp: ${t.exp}</span></label>`).join('');
-document.getElementById('modal-pago').classList.add('is-active');
-}
+                let btnPagar = r.reservationStatus === 'PENDING'
+                    ? `<button class="button is-small btn-cafe-solido mr-2" 
+        onclick="abrirModalPago(${r.id}, '${r.travelPackageName}', ${r.totalPrice})">Pay</button>` : '';
 
-function cerrarModalPago() { document.getElementById('modal-pago').classList.remove('is-active'); reservaAPagar = null; }
-function procesarPago() { res = res.map(r => r.id === reservaAPagar ? { ...r, status: 'Confirmed' } : r); alert("Payment successful! Generating receipt..."); cerrarModalPago(); render(); }
+                // ← solo muestra X si NO está cancelada
+                let btnCancelar = r.reservationStatus !== 'CANCELED'
+                    ? `<button class="button is-small btn-eliminar" onclick="eliminarReserva(${r.id})" title="Cancel">✖</button>` : '';
 
-render();
-</script>
+                return `
+        <div class="box tarjeta-reservacion is-shadowless mb-3 p-4 is-flex is-justify-content-space-between is-align-items-center">
+            <div>
+                <p class="has-text-weight-bold is-size-5 texto-espresso">${r.travelPackageName}</p>
+                <p class="is-size-7 texto-cafe-oscuro mb-1">${r.numberOfPeople} Adults - ${r.reservationDate}</p>
+                <p class="is-size-7 has-text-weight-bold ${statusColor}">${r.reservationStatus} - $${r.totalPrice} MXN</p>
+            </div>
+            <div class="is-flex is-align-items-center">
+                ${btnPagar}
+                ${btnCancelar}
+            </div>
+        </div>`;
+            }).join('');
+        }
+
+        async function cargarFavoritos() {
+            const response = await fetch('http://localhost:8080/api/favorites', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const favs = await response.json();
+
+            if (favs.length === 0) {
+                document.getElementById('lista-favoritos-dinamica').innerHTML = `
+            <div class="has-text-centered py-5">
+                <p class="is-size-1 mb-2">🏝️</p>
+                <p class="texto-cafe-oscuro">You don't have any favorite places yet.</p>
+            </div>`;
+                return;
+            }
+
+            document.getElementById('lista-favoritos-dinamica').innerHTML = favs.map(f => `
+        <li class="mb-2 box item-favorito p-3 is-shadowless is-flex is-justify-content-space-between is-align-items-center">
+            <a href="journey.html?id=${f.destinationId}" class="has-text-weight-semibold texto-espresso">${f.city}, ${f.country}</a>
+            <button class="button is-small btn-estrella" onclick="eliminarFav(${f.destinationId})" title="Remove">★</button>
+        </li>
+    `).join('');
+        }
+
+        async function cargarTarjetas() {
+            const response = await fetch('http://localhost:8080/api/cards/my', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            return await response.json();
+        }
+
+        async function eliminarReserva(id) {
+            if (!confirm('Are you sure you want to cancel this reservation?')) return;
+
+            try {
+                const response = await fetch(`http://localhost:8080/api/reservations/${id}/cancel`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    showToast('Reservation cancelled', 'info');
+                    cargarReservaciones();
+                }
+            } catch (error) {
+                showToast('Error cancelling reservation', 'error');
+            }
+        }
+
+        async function eliminarFav(destinationId) {
+            await fetch(`http://localhost:8080/api/favorites/${destinationId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            cargarFavoritos();
+        }
+
+        async function abrirModalPago(reservaId, paquete, totalPrice) {
+            reservaAPagar = reservaId;
+            document.getElementById('modal-nombre-paquete').textContent = paquete;
+            document.getElementById('modal-total-pago').textContent = `$${totalPrice} MXN`;
+
+            const tarjetas = await cargarTarjetas();
+
+            if (tarjetas.length === 0) {
+                document.getElementById('contenedor-tarjetas').innerHTML = `
+            <div class="has-text-centered py-3">
+                <p class="texto-cafe-oscuro mb-3">You don't have any cards yet.</p>
+                <a href="CreditCard.html" class="button btn-cafe-solido is-small">+ Add a card</a>
+            </div>`;
+            } else {
+                document.getElementById('contenedor-tarjetas').innerHTML = tarjetas.map(t => `
+            <label class="box is-shadowless p-3 mb-2 is-clickable is-flex is-align-items-center tarjeta-pago-hover"
+                   style="border: 1px solid #DCD3C6; cursor:pointer;">
+                <input type="radio" name="tarjeta" value="${t.id}" class="mr-3">
+                <span class="has-text-weight-bold mr-2 texto-espresso">${t.ownerName}</span>
+                <span class="texto-cafe-oscuro">**** ${t.accountNumber.slice(-4)}</span>
+                <span class="ml-auto is-size-7 texto-cafe-oscuro">Exp: ${t.expirationDate}</span>
+            </label>
+        `).join('');
+            }
+
+            document.getElementById('modal-pago').classList.add('is-active');
+        }
+
+        async function procesarPago() {
+            const tarjetaSeleccionada = document.querySelector('input[name="tarjeta"]:checked');
+
+            if (!tarjetaSeleccionada) {
+                showToast('Please select a card', 'error');
+                return;
+            }
+
+            try {
+                // Confirma la reservación
+                const response = await fetch(`http://localhost:8080/api/reservations/${reservaAPagar}/confirm`, {
+                    method: 'PATCH',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (response.ok) {
+                    showToast('Payment successful! Reservation confirmed.', 'success');
+                    cerrarModalPago();
+                    setTimeout(() => cargarReservaciones(), 1000);
+                } else {
+                    showToast('Error processing payment', 'error');
+                }
+            } catch (error) {
+                showToast('Error connecting to server', 'error');
+            }
+        }
+
+        function cerrarModalPago() {
+            document.getElementById('modal-pago').classList.remove('is-active');
+            reservaAPagar = null;
+        }
+
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Iniciar
+        cargarPerfil();
+        cargarReservaciones();
+        cargarFavoritos();
+    </script>
 </body>
+
 </html>
