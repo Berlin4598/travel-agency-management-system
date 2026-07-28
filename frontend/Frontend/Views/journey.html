@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,203 +8,302 @@
     <title>Travel Agency</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="fondo-crema">
-   <header class="p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
-    <div class="dropdown is-hoverable">
-    <div class="dropdown-trigger">
-    <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-    <span>Menu</span></button></div>
+    <header class="p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+        <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+                <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>Menu</span></button>
+            </div>
 
-    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-    <div class="dropdown-content">
-        <a href="Main.html" class="dropdown-item">Main Page</a>
-        <a href="Profile.html" class="dropdown-item">Profile</a>
-        <a href="login.html" class="dropdown-item">Log out</a>
-    </div></div></div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <a href="Main.html" class="dropdown-item">Main Page</a>
+                    <a href="Profile.html" class="dropdown-item">Profile</a>
+                    <a href="login.html" class="dropdown-item">Log out</a>
+                </div>
+            </div>
+        </div>
 
-    <div class="is-flex is-align-items-center">
-        <img src="img/logo.png" alt="Logo" class="LogoAgencia">
+        <div class="is-flex is-align-items-center">
+            <img src="img/logo.png" alt="Logo" class="LogoAgencia">
+        </div>
+
+        <a href="Profile.html">
+            <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
+        </a>
+    </header>
+
+    <main class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-variable is-6">
+
+                <div class="column is-7">
+                    <!-- SECCIÓN A1: Info del Destino -->
+                    <div id="seccion-a1" class="box caja-info-boutique mb-5 is-relative">
+
+                    </div>
+
+                    <!-- SECCIÓN A2: Paquetes de viaje -->
+                    <h3 class="title is-4 mb-4 texto-espresso">Travel pack options</h3>
+                    <div id="seccion-a2" class="columns is-multiline">
+
+                    </div>
+                </div>
+
+                <div class="column is-5">
+                    <div class="box p-5 caja-clima-boutique">
+                        <h3 class="title is-4 has-text-centered texto-crema mb-4">7-Day Forecast</h3>
+                        <div class="clima-carrusel" id="carrusel-pronostico">
+                            <!-- JS inyectará los 7 días aquí -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="modal-reserva" class="modal">
+        <div class="modal-background" onclick="cerrarModal()"></div>
+        <div class="modal-content">
+            <div class="box modal-boutique has-text-centered p-6">
+                <h3 class="title is-3 texto-espresso">You want to add this trip?</h3>
+                <p id="modal-nombre-paquete" class="is-size-5 mb-4 texto-cafe-oscuro"></p>
+
+                <!-- ← agrega esto -->
+                <div class="field mb-4">
+                    <label class="label texto-espresso">Number of people</label>
+                    <div class="control">
+                        <input id="modal-num-personas" class="input input-boutique has-text-centered" type="number"
+                            min="1" max="20" value="1">
+                    </div>
+                </div>
+
+                <div class="buttons is-centered mt-4">
+                    <button class="button btn-cancelar is-medium" onclick="cerrarModal()">No</button>
+                    <button class="button btn-cafe-solido is-medium" onclick="confirmarReserva()">Yes</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <a href="Profile.html">
-        <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
-    </a>
-</header>
+    <script>
 
-<main class="section">
-<div class="container is-max-desktop">
-<div class="columns is-variable is-6">
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = 'login.html';
 
-<div class="column is-7">
-<!-- SECCIÓN A1: Info del Destino -->
-<div id="seccion-a1" class="box caja-info-boutique mb-5 is-relative">
+        const urlParams = new URLSearchParams(window.location.search);
+        const destinoId = urlParams.get('id');
 
+        // Carga info del destino
+        async function cargarDestino() {
+            const response = await fetch(`http://localhost:8080/api/destinations/${destinoId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const destino = await response.json();
+
+            document.getElementById('seccion-a1').innerHTML = `
+        <div style="position:relative; margin-bottom: 1.5rem;">
+            <img src="${destino.imageUrl}" 
+                 style="width:100%; height:220px; object-fit:cover; object-position: center 40%; border-radius:10px;">
+            <div style="position:absolute; bottom:0; left:0; right:0; 
+                        background: linear-gradient(transparent, rgba(0,0,0,0.6)); 
+                        border-radius: 0 0 10px 10px; padding: 1rem;">
+                <h1 class="title is-2 mb-0 has-text-white">${destino.city}</h1>
+                <p class="has-text-white" style="opacity:0.85">${destino.country}</p>
+            </div>
+            <button id="btn-fav" class="btn-favorito" onclick="toggleFavorito()" title="Save as favorite">★</button>
+        </div>
+        <p class="texto-cafe-oscuro" style="line-height: 1.6;">${destino.description}</p>
+    `;
+        }
+
+        async function verificarFavorito() {
+            const response = await fetch('http://localhost:8080/api/favorites', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const favs = await response.json();
+
+            const esFavorito = favs.some(f => f.destinationId == destinoId);
+            const btn = document.getElementById('btn-fav');
+
+            if (esFavorito) {
+                btn.classList.add('activo');
+                btn.title = 'Remove from favorites';
+            } else {
+                btn.classList.remove('activo');
+                btn.title = 'Save as favorite';
+            }
+        }
+
+        // Carga paquetes del destino
+        async function cargarPaquetes() {
+            const response = await fetch(`http://localhost:8080/api/travelpackages/destination/${destinoId}`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const paquetes = await response.json();
+
+            if (paquetes.length === 0) {
+                document.getElementById('seccion-a2').innerHTML = `
+            <div class="column is-12">
+    <div class="box has-text-centered p-6" style="border: 2px dashed #DCD3C6; background-color: #F9F6F0;">
+        <img src="https://cdn.meteocons.com/3.0.0-next.10/svg/monochrome/wind.svg" 
+             style="width:100px; height:100px; margin-bottom:1rem;">
+        <p class="texto-cafe-oscuro has-text-weight-semibold is-size-5">No travel packages available yet.</p>
+        <p class="texto-cafe-oscuro is-size-7 mt-2">Check back soon!</p>
+    </div>
 </div>
+        `;
+                return;
+            }
+            document.getElementById('seccion-a2').innerHTML = paquetes.map(p => `
+        <div class="column is-4">
+            <div class="box tarjeta-paquete has-text-centered" onclick="abrirModal('${p.packageName}', ${p.price}, ${p.id})">
+                <h4 class="title is-5 mb-3 texto-espresso">${p.packageName}</h4>
+                <h5 class="subtitle is-3 texto-terracota has-text-weight-bold mb-4">$${p.price}</h5>
+                <div class="info-paquete mb-4">
+                    <p class="is-size-7 texto-cafe-oscuro"><strong>Duration:</strong> ${p.durationDays} Days</p>
+                    <p class="is-size-7 texto-cafe-oscuro"><strong>Transport:</strong> ${p.transportationType}</p>
+                </div>
+                <p class="is-size-7 texto-cafe-oscuro descripcion-paquete">${p.description}</p>
+                <button class="button btn-cafe-solido is-small is-fullwidth mt-4">Select</button>
+            </div>
+        </div>
+    `).join('');
+        }
 
-<!-- SECCIÓN A2: Paquetes de viaje -->
-<h3 class="title is-4 mb-4 texto-espresso">Travel pack options</h3>
-<div id="seccion-a2" class="columns is-multiline">
+        // Carga clima de 7 días
+        async function cargarClima() {
+            const response = await fetch(`http://localhost:8080/api/destinations/${destinoId}/weather`, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            const clima = await response.json();
 
-</div>
-</div>
+            document.getElementById('carrusel-pronostico').innerHTML = clima.forecast.map((dia, index) => {
+                let label = dia.date;
+                if (index === 0) label = 'Today';
+                if (index === 1) label = 'Tomorrow';
 
-<div class="column is-5">
-<div class="box p-5 caja-clima-boutique">
-<h3 class="title is-4 has-text-centered texto-crema mb-4">7-Day Forecast</h3>
-<div class="clima-carrusel" id="carrusel-pronostico">
-<!-- JS inyectará los 7 días aquí -->
-</div>
-</div>
-</div>
+                // color según condición
+                const colores = {
+                    'Sunny': { bg: '#FFF3CD', border: '#F4C430', text: '#856404' },
+                    'Partly Cloudy': { bg: '#FFF8E7', border: '#D4A373', text: '#6B4F2A' },
+                    'Cloudy': { bg: '#ECECEC', border: '#B0B0B0', text: '#4A4A4A' },
+                    'Rainy': { bg: '#E8F4FD', border: '#5BA4CF', text: '#1E6091' },
+                    'Snowy': { bg: '#F0F8FF', border: '#AED6F1', text: '#1A5276' },
+                    'Stormy': { bg: '#EAECEE', border: '#717D7E', text: '#2C3E50' }
+                };
 
-</div></div></main>
+                const color = colores[dia.condition] || colores['Partly Cloudy'];
 
-<div id="modal-reserva" class="modal">
-<div class="modal-background" onclick="cerrarModal()"></div>
-<div class="modal-content">
-<div class="box modal-boutique has-text-centered p-6">
-<h3 class="title is-3 texto-espresso">You want to add this trip?</h3>
-<p id="modal-nombre-paquete" class="is-size-5 mb-5 texto-cafe-oscuro"></p>
-<div class="buttons is-centered mt-4">
-<button class="button btn-cancelar is-medium" onclick="cerrarModal()">No</button>
-<button class="button btn-cafe-solido is-medium" onclick="confirmarReserva()">Yes</button>
-</div></div></div></div>
+                return `
+         <div class="tarjeta-clima-fila is-flex is-justify-content-space-between is-align-items-center"
+             style="background-color:${color.bg}; border-color:${color.border};">
+            <div>
+                <span class="has-text-weight-bold is-size-6" style="color:${color.text};">${label}</span>
+                ${index === 0 ? '<span class="tag is-small ml-2" style="background-color:' + color.border + '; color:white; border-radius:20px;">Now</span>' : ''}
+            </div>
+            <div style="background-color:rgba(0,0,0,0.70); border-radius:50%; width:60px; height:60px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                <img src="${dia.icon}" style="width:45px;height:45px;">
+            </div>
+            <div class="has-text-right">
+                <span class="has-text-weight-bold is-size-4 is-block" style="color:${color.text};">${dia.maxTemp}°C</span>
+                <span class="is-size-7" style="color:${color.text}; opacity:0.8;">${dia.condition}</span>
+                <span class="is-size-7 is-block" style="color:${color.text}; opacity:0.6;">Min ${dia.minTemp}°C</span>
+            </div>
+        </div>
+    `}).join('');
+        }
 
-<script>
+        // Modal reserva
+        let paqueteSeleccionadoId = null;
 
+        function abrirModal(nombrePaquete, precio, paqueteId) {
+            paqueteSeleccionadoId = paqueteId;
+            document.getElementById('modal-nombre-paquete').innerHTML = `${nombrePaquete} - $${precio}`;
+            document.getElementById('modal-reserva').classList.add('is-active');
+        }
 
-// MOCK API PRONOSTICO DE 7 DÍAS
+        function cerrarModal() {
+            document.getElementById('modal-reserva').classList.remove('is-active');
+            paqueteSeleccionadoId = null;
+        }
 
-const mockPronostico = [
-{ dia: "Monday", temp: "28°C", desc: "Sunny and clear" },
-{ dia: "Tuesday", temp: "29°C", desc: "Mostly sunny" },
-{ dia: "Wednesday", temp: "27°C", desc: "Partly cloudy" },
-{ dia: "Thursday", temp: "25°C", desc: "Light rain" },
-{ dia: "Friday", temp: "26°C", desc: "Clearing up" },
-{ dia: "Saturday", temp: "30°C", desc: "Perfect beach day" },
-{ dia: "Sunday", temp: "29°C", desc: "Sunny and warm" }
-];
-function renderizarPronostico() {
-const contenedor = document.getElementById('carrusel-pronostico');
-const datosInfinitos = [...mockPronostico, ...mockPronostico];
-contenedor.innerHTML = datosInfinitos.map((clima) => `
-<div class="tarjeta-clima-fila is-flex is-justify-content-space-between is-align-items-center">
-<span class="has-text-weight-bold texto-espresso is-size-5">${clima.dia}</span>
-<div class="has-text-right">
-<span class="texto-terracota has-text-weight-bold is-size-4 is-block">${clima.temp}</span>
-<span class="texto-cafe-oscuro is-size-7">${clima.desc}</span>
-</div>
-</div>
-`).join('');
-}
-function iniciarCarruselPronostico() {
-const contenedor = document.getElementById('carrusel-pronostico');
-let scrollPos = 0;
-setInterval(() => {
-if (!contenedor.children[0]) return;
-const alturaTarjeta = contenedor.children[0].offsetHeight + 16;
-scrollPos += alturaTarjeta;
-if (scrollPos >= contenedor.scrollHeight / 2) {
-contenedor.style.scrollBehavior = 'auto';
-contenedor.scrollTop = 0;
-scrollPos = alturaTarjeta;
-setTimeout(() => contenedor.style.scrollBehavior = 'smooth', 50);
-}
-contenedor.scrollTop = scrollPos;
-}, 2500);
-}
-renderizarPronostico();
-setTimeout(iniciarCarruselPronostico, 500);
-
-// MOCK API DESTINOS Y PAQUETES DE VIAJE
-const bdDestinos = {
-1: { nombre: "Balandra Beach", ubicacion: "Baja California Sur, México", estrellas: "5-Star Rating", desc: "Famous for its shallow, crystal-clear waters and the 'Mushroom' rock formation.", paquetes: [{ package_id: 101, package_name: "Basic Getaway", price: 300.00, duration_days: 2, description: "1 Night Hostel, basic meals included.", transport: "Bus" }, { package_id: 102, package_name: "Standard Tour", price: 600.00, duration_days: 4, description: "3 Nights Hotel, guided tours and breakfast.", transport: "Commercial Flight" }, { package_id: 103, package_name: "Premium Experience", price: 1250.00, duration_days: 6, description: "5 Nights Resort, all inclusive VIP access.", transport: "First Class Flight" }]},
-2: { nombre: "Bora Bora", ubicacion: "French Polynesia", estrellas: "4-Star Rating", desc: "The classic luxury destination with bungalows over turquoise waters.", paquetes: [{ package_id: 201, package_name: "Economy Pack", price: 1000.00, duration_days: 4, description: "3 Nights hotel stay.", transport: "Commercial Flight" }, { package_id: 202, package_name: "Comfort Pack", price: 2500.00, duration_days: 6, description: "5 Nights Resort + Island Tours.", transport: "Commercial Flight" }, { package_id: 203, package_name: "Luxury Escape", price: 5000.00, duration_days: 7, description: "Overwater Bungalow full experience.", transport: "Private Jet" }]}
-};
-
-const urlParams = new URLSearchParams(window.location.search);
-const destinoId = urlParams.get('id') || 1;
-const destinoActual = bdDestinos[destinoId];
-let paqueteSeleccionadoTemporal = null;
- 
-document.getElementById('seccion-a1').innerHTML = `
-<h1 class="title is-2 mb-1 texto-espresso">${destinoActual.nombre}</h1>
-<p class="mb-3 texto-terracota has-text-weight-semibold">${destinoActual.ubicacion} | ${destinoActual.estrellas}</p>
-<p class="texto-cafe-oscuro" style="line-height: 1.6;">${destinoActual.desc}</p>
-<button id="btn-fav" class="btn-favorito" onclick="toggleFavorito()" title="Save as favorite">★</button>
-`;
-
-
-document.getElementById('seccion-a2').innerHTML = destinoActual.paquetes.map(p => `
-<div class="column is-4">
-<div class="box tarjeta-paquete has-text-centered" onclick="abrirModal('${p.package_name}', ${p.price})">
-<h4 class="title is-5 mb-3 texto-espresso">${p.package_name}</h4>
-<h5 class="subtitle is-3 texto-terracota has-text-weight-bold mb-4">$${p.price}</h5>
-<div class="info-paquete mb-4">
-    <p class="is-size-7 texto-cafe-oscuro"><strong>Duration:</strong> ${p.duration_days} Days</p>
-    <p class="is-size-7 texto-cafe-oscuro"><strong>Transport:</strong> ${p.transport}</p>
-</div>
-<p class="is-size-7 texto-cafe-oscuro descripcion-paquete">${p.description}</p>
-<button class="button btn-cafe-solido is-small is-fullwidth mt-4">Select</button>
-</div></div>
-`).join('');
-
-function abrirModal(nombrePaquete, precio) { paqueteSeleccionadoTemporal = `${destinoActual.nombre} - ${nombrePaquete} ($${precio})`; document.getElementById('modal-nombre-paquete').innerHTML = paqueteSeleccionadoTemporal; document.getElementById('modal-reserva').classList.add('is-active'); }
-function cerrarModal() { document.getElementById('modal-reserva').classList.remove('is-active'); paqueteSeleccionadoTemporal = null; }
-
-
-async function confirmarReserva() {
-    // 1. Preparas los datos que tu tabla MySQL necesita
-    const datosReserva = {
-        usuario_id: 1, 
-        paquete_id: idDelPaqueteSeleccionado, 
-        fecha_reserva: new Date().toISOString(),
-        estado: 'Pending'
-    };
+        async function confirmarReserva() {
+    const numberOfPeople = document.getElementById('modal-num-personas').value;
 
     try {
-        // 2. Tocas la puerta de tu API con 'fetch'
-        const respuesta = await fetch('http://localhost:3000/api/reservations', {
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datosReserva) 
+        const response = await fetch('http://localhost:8080/api/reservations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                numberOfPeople: parseInt(numberOfPeople),
+                travelPackageId: paqueteSeleccionadoId
+            })
         });
 
-        
-        if (respuesta.ok) {
-            alert("Trip added to your database successfully!");
+        if (response.ok) {
+            showToast('✈️ Trip reserved successfully!', 'success');
             cerrarModal();
-            window.location.href = "Profile.html"; 
+            setTimeout(() => window.location.href = 'Profile.html', 1500);
         } else {
-            alert("Hubo un error al guardar en la base de datos.");
+            const error = await response.json();
+            showToast(error.message || 'Error making reservation', 'error');
         }
     } catch (error) {
-        console.error("Fallo la conexión con el servidor:", error);
+        showToast('Error connecting to server', 'error');
     }
 }
 
-async function toggleFavorito() {
-    const btn = document.getElementById('btn-fav');
-    const esFavorito = btn.classList.contains('activo');
-    const metodoHttp = esFavorito ? 'DELETE' : 'POST';
+        async function toggleFavorito() {
+            const btn = document.getElementById('btn-fav');
+            const esFavorito = btn.classList.contains('activo');
+            const method = esFavorito ? 'DELETE' : 'POST';
 
-    try {
-        const respuesta = await fetch(`http://localhost:3000/api/favorites`, {
-            method: metodoHttp,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ usuario_id: 1, destino_id: destinoId })
-        });
+            try {
+                const response = await fetch(`http://localhost:8080/api/favorites/${destinoId}`, {
+                    method: method,
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
 
-        if(respuesta.ok) {
-            btn.classList.toggle('activo');
+                if (response.ok) {
+                    btn.classList.toggle('activo');
+                    btn.title = esFavorito ? 'Save as favorite' : 'Remove from favorites';
+
+                    // mensaje rápido
+                    showToast(esFavorito ? 'Removed from favorites' : 'Added to favorites',
+                        esFavorito ? 'error' : 'success');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
         }
-    } catch (error) {
-        console.log("No se pudo conectar con la API");
-    }
-}
 
-const carrusel = document.getElementById('CarruselAuto');
-setInterval(() => { const scrollMaximo = carrusel.scrollWidth - carrusel.clientWidth; if (carrusel.scrollLeft >= scrollMaximo - 1) { carrusel.scrollLeft = 0; } else { carrusel.scrollLeft += carrusel.clientWidth;} }, 3000);
-</script>
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        cargarDestino().then(() => verificarFavorito()); // ← espera a que cargue el destino primero
+        cargarPaquetes();
+        cargarClima();
+    </script>
 </body>
+
 </html>
