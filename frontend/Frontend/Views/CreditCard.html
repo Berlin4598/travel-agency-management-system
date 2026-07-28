@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Credit Card</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Credit Card</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <class="fondo-crema">
-<header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+    <header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
         <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-        <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>Menu</span></button></div>
+            <div class="dropdown-trigger">
+                <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <span>Menu</span></button>
+            </div>
 
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-            <a href="Main.html" class="dropdown-item">Main Page</a>
-            
-            <a href="login.html" class="dropdown-item">Log out</a>
-        </div></div></div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                <div class="dropdown-content">
+                    <a href="Main.html" class="dropdown-item">Main Page</a>
+
+                    <a href="login.html" class="dropdown-item">Log out</a>
+                </div>
+            </div>
+        </div>
 
         <div class="is-flex is-align-items-center">
             <img src="img/logo.png" alt="Logo" class="LogoAgencia">
@@ -30,64 +34,103 @@
         </a>
     </header>
 
-<main class="section">
-<div class="container is-max-desktop">
-<div class="columns is-centered mt-5">
-<div class="column is-6">
-<div class="box p-5 caja-centrada-boutique">
+    <main class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered mt-5">
+                <div class="column is-6">
+                    <div class="box p-5 caja-centrada-boutique">
 
-<h1 class="title is-4 has-text-centered mb-5 texto-espresso">Add New Credit Card</h1>
-<form action="Profile.html">
+                        <h1 class="title is-4 has-text-centered mb-5 texto-espresso">Add New Credit Card</h1>
+                        <form id="cardForm">
 
-<div class="field mb-4">
-<label for="card-owner" class="label texto-espresso">Owner Name</label>
-<div class="control">
-<input id="card-owner" name="owner_name" class="input input-boutique" type="text" placeholder="Name on card" required>
-</div>
-</div>
+                            <div class="field mb-4">
+                                <label for="card-owner" class="label texto-espresso">Owner Name</label>
+                                <div class="control">
+                                    <input id="card-owner" name="owner_name" class="input input-boutique" type="text"
+                                        placeholder="Name on card" required>
+                                </div>
+                            </div>
 
-<div class="field mb-4">
-<label for="card-number" class="label texto-espresso">Card Number</label>
-<div class="control">
-<input id="card-number" name="account_number" class="input input-boutique" type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
-</div>
-</div>
+                            <div class="field mb-4">
+                                <label for="card-number" class="label texto-espresso">Card Number</label>
+                                <div class="control">
+                                    <input id="card-number" name="account_number" class="input input-boutique"
+                                        type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
+                                </div>
+                            </div>
 
-<div class="columns is-mobile">
-<div class="column is-6">
-<div class="field">
-<label for="card-exp" class="label texto-espresso">Expiration Date</label>
-<div class="control">
-<input id="card-exp" name="expiration_date" class="input input-boutique" type="month" required>
-</div>
-</div>
-</div>
+                            <div class="columns is-mobile">
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label for="card-exp" class="label texto-espresso">Expiration Date</label>
+                                        <div class="control">
+                                            <input id="card-exp" name="expiration_date" class="input input-boutique"
+                                                type="month" required>
+                                        </div>
+                                    </div>
+                                </div>
 
-<div class="column is-6">
-<div class="field">
-<label for="card-cvv" class="label texto-espresso">CVV</label>
-<div class="control">
-<input id="card-cvv" name="cvv" class="input input-boutique" type="password" placeholder="XXX" maxlength="4" required>
-</div>
-</div>
-</div>
-</div>
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label for="card-cvv" class="label texto-espresso">CVV</label>
+                                        <div class="control">
+                                            <input id="card-cvv" name="cvv" class="input input-boutique" type="password"
+                                                placeholder="XXX" maxlength="4" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-<div class="is-flex is-justify-content-space-between mt-5">
-<a href="Profile.html" class="button btn-cancelar">Cancel</a>
-<button type="submit" class="button btn-cafe-solido">Save Card</button>
-</div>
+                            <div class="is-flex is-justify-content-space-between mt-5">
+                                <a href="Profile.html" class="button btn-cancelar">Cancel</a>
+                                <button type="submit" class="button btn-cafe-solido">Save Card</button>
+                            </div>
 
-</form>
+                        </form>
 
-</div>
-</div>
-</div>
-</div>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/bulma@0.9.4/js/bulma.js">
-    
-</script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
 
-</body>
+        const token = localStorage.getItem('token');
+        if (!token) window.location.href = 'login.html';
+
+        document.getElementById('cardForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const cardNumber = document.getElementById('card-number').value.replace(/\s/g, ''); // quita espacios
+
+            try {
+                const response = await fetch('http://localhost:8080/api/cards', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        ownerName: document.getElementById('card-owner').value,
+                        accountNumber: cardNumber,
+                        expirationDate: document.getElementById('card-exp').value,
+                        cvv: document.getElementById('card-cvv').value
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Card added successfully!');
+                    window.location.href = 'Profile.html';
+                } else {
+                    const error = await response.json();
+                    alert(error.message || 'Error adding card');
+                }
+            } catch (error) {
+                alert('Error connecting to server');
+            }
+        });
+    </script>
+
+    </body>
+
 </html>
