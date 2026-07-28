@@ -1,5 +1,6 @@
 package com.utma.tams.travel_agency_management_system_api.models.dto.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.utma.tams.travel_agency_management_system_api.models.enums.ReservationStatus;
@@ -16,8 +17,9 @@ public class ReservationResponseDTO {
     private String travelPackageName;
     private Long guideId;
     private String guideFullName;
+    private BigDecimal totalPrice;
 
-    public ReservationResponseDTO(Long id, LocalDate reservationDate, Integer numberOfPeople, ReservationStatus reservationStatus, Long userId, String userFullName, Long travelPackageId, String travelPackageName, Long guideId, String guideFullName) {
+    public ReservationResponseDTO(Long id, LocalDate reservationDate, Integer numberOfPeople, ReservationStatus reservationStatus, Long userId, String userFullName, Long travelPackageId, String travelPackageName, Long guideId, String guideFullName, BigDecimal totalPrice) {
         this.id = id;
         this.reservationDate = reservationDate;
         this.numberOfPeople = numberOfPeople;
@@ -28,6 +30,7 @@ public class ReservationResponseDTO {
         this.travelPackageName = travelPackageName;
         this.guideId = guideId;
         this.guideFullName = guideFullName;
+        this.totalPrice = totalPrice;
     }
 
     public ReservationResponseDTO(){
@@ -113,6 +116,16 @@ public class ReservationResponseDTO {
     public void setGuideFullName(String guideFullName) {
         this.guideFullName = guideFullName;
     }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    
 
     
 }

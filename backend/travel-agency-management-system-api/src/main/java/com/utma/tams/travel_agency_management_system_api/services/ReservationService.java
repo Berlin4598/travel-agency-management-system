@@ -1,5 +1,6 @@
 package com.utma.tams.travel_agency_management_system_api.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +47,9 @@ public class ReservationService {
                 reservation.getTravelPackage().getId(),
                 reservation.getTravelPackage().getPackageName(),
                 reservation.getGuide().getId(),
-                reservation.getGuide().getFirstName().concat(" ").concat(reservation.getGuide().getLastName()));
+                reservation.getGuide().getFirstName().concat(" ").concat(reservation.getGuide().getLastName()),
+                reservation.getTravelPackage().getPrice().multiply(BigDecimal.valueOf(reservation.getNumberOfPeople()))
+            );
     }
 
     private Reservation findById(Long id) {
