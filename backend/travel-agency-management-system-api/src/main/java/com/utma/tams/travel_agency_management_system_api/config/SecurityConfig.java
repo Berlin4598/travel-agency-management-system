@@ -48,8 +48,14 @@ public class SecurityConfig {
                         // Specific
                         .requestMatchers(HttpMethod.GET, "/api/users/my").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/users/my").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/cards").authenticated() // ← ya lo tienes
                         .requestMatchers(HttpMethod.GET, "/api/cards/my").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/reservations").authenticated() // ← agrega esto
                         .requestMatchers(HttpMethod.GET, "/api/reservations/my").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/reservations/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/favorites/**").authenticated() // ← agrega esto
+                        .requestMatchers(HttpMethod.POST, "/api/favorites/**").authenticated() // ← agrega esto
+                        .requestMatchers(HttpMethod.DELETE, "/api/favorites/**").authenticated()
 
                         // only admin
                         .requestMatchers(HttpMethod.GET, "/api/cards").hasRole("ADMIN")
@@ -75,7 +81,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/travelpackages/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/reservations").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/reservations/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/api/reservations/**").hasRole("ADMIN")
                         // any user authenticated
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session
