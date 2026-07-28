@@ -54,4 +54,9 @@ public class TravelPackageController {
         travelPackageService.deleteTravelPackage(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/destination/{id}")
+    public ResponseEntity<List<TravelPackageResponseDTO>> getByDestination(@PathVariable Long id){
+        return ResponseEntity.ok(travelPackageService.getByDestinationId(id));
+    }
 }

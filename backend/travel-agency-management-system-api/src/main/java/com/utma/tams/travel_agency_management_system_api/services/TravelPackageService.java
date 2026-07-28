@@ -20,60 +20,65 @@ public class TravelPackageService {
     private final DestinationRepository destinationRepository;
     private final TransportationRepository transportationRepository;
 
-    public TravelPackageService(TravelPackageRepository travelPackageRepository, DestinationRepository destinationRepository, TransportationRepository transportationRepository){
+    public TravelPackageService(TravelPackageRepository travelPackageRepository,
+            DestinationRepository destinationRepository, TransportationRepository transportationRepository) {
         this.destinationRepository = destinationRepository;
         this.travelPackageRepository = travelPackageRepository;
-        this.transportationRepository =  transportationRepository;
+        this.transportationRepository = transportationRepository;
     }
 
-    private TravelPackageResponseDTO toResponseDTO(TravelPackage travelPackage){
+    private TravelPackageResponseDTO toResponseDTO(TravelPackage travelPackage) {
         return new TravelPackageResponseDTO(
-            travelPackage.getId(),
-            travelPackage.getPackageName(), 
-            travelPackage.getDescription(), 
-            travelPackage.getPrice(), 
-            travelPackage.getDurationDays(), 
-            travelPackage.getDestination().getId(), 
-            travelPackage.getDestination().getCity(), 
-            travelPackage.getDestination().getCountry(), 
-            travelPackage.getTransportation().getId(), 
-            travelPackage.getTransportation().getType(), 
-            travelPackage.getTransportation().getCompany()
-        );
+                travelPackage.getId(),
+                travelPackage.getPackageName(),
+                travelPackage.getDescription(),
+                travelPackage.getPrice(),
+                travelPackage.getDurationDays(),
+                travelPackage.getDestination().getId(),
+                travelPackage.getDestination().getCity(),
+                travelPackage.getDestination().getCountry(),
+                travelPackage.getTransportation().getId(),
+                travelPackage.getTransportation().getType(),
+                travelPackage.getTransportation().getCompany());
     }
 
-    private TravelPackage findById(Long id){
-        return travelPackageRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Travel Package not found"));
+    private TravelPackage findById(Long id) {
+        return travelPackageRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Travel Package not found"));
     }
 
-    public List<TravelPackageResponseDTO> getAllTravelPackages(){
+    public List<TravelPackageResponseDTO> getAllTravelPackages() {
         return travelPackageRepository.findAll().stream().map(this::toResponseDTO).collect(Collectors.toList());
     }
 
-    public TravelPackageResponseDTO getById(Long id){
+    public TravelPackageResponseDTO getById(Long id) {
         return toResponseDTO(findById(id));
     }
 
-    public TravelPackageResponseDTO createTravelPackage(TravelPackageRequestDTO requestDTO){
+    public TravelPackageResponseDTO createTravelPackage(TravelPackageRequestDTO requestDTO) {
 
-        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new ResourceNotFoundException("Destination not found"));
-        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new ResourceNotFoundException("Transportation not found"));
+        var destination = destinationRepository.findById(requestDTO.getDestinationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found"));
+        var transportation = transportationRepository.findById(requestDTO.getTransportationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Transportation not found"));
 
         TravelPackage travelPackage = new TravelPackage(
-            requestDTO.getPackageName(),
-            requestDTO.getDescription(), 
-            requestDTO.getPrice(), 
-            requestDTO.getDurationDays(), 
-            destination, transportation);
+                requestDTO.getPackageName(),
+                requestDTO.getDescription(),
+                requestDTO.getPrice(),
+                requestDTO.getDurationDays(),
+                destination, transportation);
 
         travelPackageRepository.save(travelPackage);
         return toResponseDTO(travelPackage);
     }
 
-    public TravelPackageResponseDTO updateTravelPackage(Long id, TravelPackageRequestDTO requestDTO){
+    public TravelPackageResponseDTO updateTravelPackage(Long id, TravelPackageRequestDTO requestDTO) {
         var travelPackage = findById(id);
-        var destination = destinationRepository.findById(requestDTO.getDestinationId()).orElseThrow(()-> new ResourceNotFoundException("Destination not found"));
-        var transportation = transportationRepository.findById(requestDTO.getTransportationId()).orElseThrow(()-> new ResourceNotFoundException("Transportation not found"));
+        var destination = destinationRepository.findById(requestDTO.getDestinationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Destination not found"));
+        var transportation = transportationRepository.findById(requestDTO.getTransportationId())
+                .orElseThrow(() -> new ResourceNotFoundException("Transportation not found"));
 
         travelPackage.setPackageName(requestDTO.getPackageName());
         travelPackage.setDescription(requestDTO.getDescription());
@@ -87,8 +92,15 @@ public class TravelPackageService {
         return toResponseDTO(travelPackage);
     }
 
-    public void deleteTravelPackage(Long id){
+    public void deleteTravelPackage(Long id) {
         travelPackageRepository.delete(findById(id));
+    }
+
+    public List<TravelPackageResponseDTO> getByDestinationId(Long id){
+        return travelPackageRepository.findByDestinationId(id)
+        .stream()
+        .map(this::toResponseDTO)
+        .collect(Collectors.toList());
     }
 
 }
