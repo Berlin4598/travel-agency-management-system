@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<title>Guides Info - Travel Agency</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fondo-crema">
+<!-- SLIDE MENU OCULTO -->
+    <div id="slide-menu" class="slide-menu-boutique p-5">
+        <button class="delete is-large is-pulled-right mb-5" aria-label="close" onclick="toggleMenu()"></button>
+        <div class="is-clearfix"></div>
+        <h2 class="title is-4 texto-espresso mb-5" style="border-bottom: 2px solid #DCD3C6; padding-bottom: 10px;">Menu</h2>
+        <ul class="menu-list mt-2">
+            <li><a href="Main.html" class="is-size-5 texto-espresso py-3 mb-2">Home</a></li>
+            <li><a href="Profile.html" class="is-size-5 texto-espresso py-3 mb-2">Profile</a></li>
+            <li><a href="login.html" class="is-size-5 texto-terracota py-3 mt-5 has-text-weight-bold">Log out</a></li>
+        </ul>
+    </div>
+    
+    <!-- OVERLAY OSCURO (Al hacer clic afuera, se cierra el menú) -->
+    <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+        <!-- Botón Menú -->
+        <div style="width: 80px;">
+            <button class="button btn-cafe is-outlined" onclick="toggleMenu()">
+                <span>Menu</span>
+            </button>
+        </div>
+        
+        <!-- Logo Centrado -->
+        <div class="is-flex is-justify-content-center" style="flex-grow: 1;">
+            <img src="src/LogoMain.png" alt="Logo" class="logo-boutique">
+        </div>
+        
+        <!-- Icono Perfil -->
+        <div style="width: 80px; text-align: right;">
+            <a href="Profile.html" style="display: inline-block;">
+                <svg viewBox="0 0 24 24" class="icono-perfil-boutique" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="7" r="5" />
+                  <path d="M4 21v-1c0-3.866 3.134-7 7-7h2c3.866 0 7 3.134 7 7v1H4z" />
+                </svg>
+            </a>
+        </div>
+    </header>
+<main class="section">
+<div class="container is-max-desktop">
+<div class="columns is-variable is-6">
+<div class="column is-7 ColumnaScroll">
+<h1 class="title is-3 texto-espresso mb-5">Our Expert Guides</h1>
+<div id="contenedor-guias">
+<!-- Los guías se inyectan por JS -->
+</div>
+</div>
+<div class="column is-5">
+<div class="box p-5 caja-clima-boutique">
+<h3 class="title is-4 has-text-centered texto-crema mb-4">Current Weather</h3>
+<div class="clima-carrusel" id="carrusel-clima">
+<!-- tarjetas de clima -->
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FOOTER BOUTIQUE -->
+    <footer class="footer pb-4 pt-5 is-shadowless" style="background-color: transparent;">
+        <div class="content has-text-centered">
+            <p class="is-size-7 texto-cafe-oscuro" style="letter-spacing: 1px;">
+                &copy; 2026 Travel Agency Boutique. All rights reserved.
+            </p>
+        </div>
+    </footer>
+<script>
+// 1. MOCK DE GUÍAS BOUTIQUE (Nombre, Apellido y Correo)
+
+const mockGuias = [
+{ nombre: "Alejandro", apellido: "Torres", correo: "alejandro.torres@boutiquetravel.com" },
+{ nombre: "Sofía", apellido: "Mendoza", correo: "sofia.mendoza@boutiquetravel.com" },
+{ nombre: "Carlos", apellido: "Rivera", correo: "carlos.rivera@boutiquetravel.com" }
+];
+
+document.getElementById('contenedor-guias').innerHTML = mockGuias.map(g => `
+<div class="box is-flex is-align-items-center mb-4" style="background-color:#FFFFFF; border:1px solid #DCD3C6; transition:.3s; border-radius: 12px;">
+<div class="content is-flex-grow-1 mb-0 p-2">
+<h4 class="texto-espresso mb-2 is-size-5">${g.nombre} ${g.apellido}</h4>
+<p class="texto-cafe-oscuro is-size-6 mb-0"><strong class="texto-terracota">Email:</strong> ${g.correo}</p>
+</div>
+</div>
+`).join('');
+
+
+// 2. LÓGICA DE TU API DE CLIMA
+
+const token = "token_de_prueba"; // Recuerda cambiarlo a tu localStorage cuando conectes el login
+async function cargarDestinosParaClima() {
+try {
+const response = await fetch('http://localhost:8080/api/destinations', {
+headers: { 'Authorization': `Bearer ${token}` }
+});
+const destinos = await response.json();
+// Solo mandamos llamar el clima (ya no inyectamos destinos en esta página)
+cargarTodosLosClimas(destinos);
+} catch (error) {
+console.error('Error cargando destinos:', error);
+}
+}
+async function cargarTodosLosClimas(destinos) {
+const contenedor = document.getElementById('carrusel-clima');
+contenedor.innerHTML = '<p class="has-text-centered texto-crema">Loading weather...</p>';
+const climas = [];
+for (const destino of destinos) {
+try {
+const response = await fetch(
+`http://localhost:8080/api/destinations/${destino.id}/weather`,
+{ headers: { Authorization: `Bearer ${token}` } }
+);
+if (!response.ok) continue;
+const clima = await response.json();
+climas.push({
+city: destino.city,
+country: destino.country,
+image: destino.imageUrl,
+weather: clima.forecast[0]
+});
+} catch (e) {
+console.error(`Error clima ${destino.city}:`, e);
+}
+}
+iniciarCarruselClima(climas);
+}
+function iniciarCarruselClima(climas) {
+const contenedor = document.getElementById('carrusel-clima');
+if(climas.length === 0) {
+contenedor.innerHTML = '<p class="has-text-centered texto-crema">No weather data</p>';
+return;
+}
+let indice = 0;
+function mostrarClima() {
+contenedor.style.opacity = '0';
+contenedor.style.transform = 'translateY(15px)';
+setTimeout(() => {
+const clima = climas[indice];
+contenedor.innerHTML = `
+<div class="weather-card" style="background-image: url('${clima.image}');">
+<img src="${clima.weather.icon}" class="weather-icon mb-2" style="width:95px; height:95px;">
+<h2 class="title is-3 has-text-white" style="margin-bottom: 2px;">${clima.city}</h2>
+<p class="has-text-white" style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 0.8rem; letter-spacing: 1px; text-transform: uppercase;">${clima.country}</p>
+<p class="weather-temp mb-1">${clima.weather.maxTemp}°</p>
+<p class="weather-condition mb-1">${clima.weather.condition}</p>
+<p class="weather-min">Min ${clima.weather.minTemp}°C</p>
+</div>
+`;
+contenedor.style.opacity = '1';
+contenedor.style.transform = 'translateY(0)';
+indice = (indice + 1) % climas.length;
+}, 300);
+}
+mostrarClima();
+setInterval(mostrarClima, 3000);
+}
+cargarDestinosParaClima();
+
+function toggleMenu() {
+        document.getElementById('slide-menu').classList.toggle('is-active');
+        document.getElementById('menu-overlay').classList.toggle('is-active');
+    }
+</script>
+</body>
+</html>

@@ -9,29 +9,45 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <class="fondo-crema">
-    <header class=" p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
-        <div class="dropdown is-hoverable">
-            <div class="dropdown-trigger">
-                <button class="button btn-cafe is-outlined" aria-haspopup="true" aria-controls="dropdown-menu">
-                    <span>Menu</span></button>
-            </div>
+    <!-- SLIDE MENU OCULTO -->
+    <div id="slide-menu" class="slide-menu-boutique p-5">
+        <button class="delete is-large is-pulled-right mb-5" aria-label="close" onclick="toggleMenu()"></button>
+        <div class="is-clearfix"></div>
+        <h2 class="title is-4 texto-espresso mb-5" style="border-bottom: 2px solid #DCD3C6; padding-bottom: 10px;">Menu</h2>
+        <ul class="menu-list mt-2">
+            <li><a href="Main.html" class="is-size-5 texto-espresso py-3 mb-2">Home</a></li>
+            <li><a href="Profile.html" class="is-size-5 texto-espresso py-3 mb-2">Profile</a></li>
+            <li><a href="GuiasInfo.html" class="is-size-5 texto-espresso py-3 mb-2">Guides</a></li>
+            <li><a href="login.html" class="is-size-5 texto-terracota py-3 mt-5 has-text-weight-bold">Log out</a></li>
+        </ul>
+    </div>
+    
+    <!-- OVERLAY OSCURO (Al hacer clic afuera, se cierra el menú) -->
+    <div id="menu-overlay" class="menu-overlay" onclick="toggleMenu()"></div>
 
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-                <div class="dropdown-content">
-                    <a href="Main.html" class="dropdown-item">Main Page</a>
-
-                    <a href="login.html" class="dropdown-item">Log out</a>
-                </div>
-            </div>
+    <!-- HEADER PRINCIPAL -->
+    <header class="p-4 is-flex is-align-items-center is-justify-content-space-between headercf">
+        <!-- Botón Menú -->
+        <div style="width: 80px;">
+            <button class="button btn-cafe is-outlined" onclick="toggleMenu()">
+                <span>Menu</span>
+            </button>
         </div>
-
-        <div class="is-flex is-align-items-center">
-            <img src="img/logo.png" alt="Logo" class="LogoAgencia">
+        
+        <!-- Logo Centrado -->
+        <div class="is-flex is-justify-content-center" style="flex-grow: 1;">
+            <img src="src/LogoMain.png" alt="Logo" class="logo-boutique">
         </div>
-
-        <a href="Profile.html">
-            <img src="src/Usuario.jpg" alt="Profile" class="PerfilImg">
-        </a>
+        
+        <!-- Icono Perfil -->
+        <div style="width: 80px; text-align: right;">
+            <a href="Profile.html" style="display: inline-block;">
+                <svg viewBox="0 0 24 24" class="icono-perfil-boutique" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="7" r="5" />
+                  <path d="M4 21v-1c0-3.866 3.134-7 7-7h2c3.866 0 7 3.134 7 7v1H4z" />
+                </svg>
+            </a>
+        </div>
     </header>
 
     <main class="section">
@@ -93,9 +109,17 @@
             </div>
         </div>
     </main>
+    <!-- FOOTER BOUTIQUE -->
+    <footer class="footer pb-4 pt-5 is-shadowless" style="background-color: transparent;">
+        <div class="content has-text-centered">
+            <p class="is-size-7 texto-cafe-oscuro" style="letter-spacing: 1px;">
+                &copy; 2026 Travel Agency Boutique. All rights reserved.
+            </p>
+        </div>
+    </footer>
     <script>
 
-        const token = localStorage.getItem('token');
+       const token = localStorage.getItem('token');
         if (!token) window.location.href = 'login.html';
 
         document.getElementById('cardForm').addEventListener('submit', async function (e) {
@@ -129,8 +153,13 @@
                 alert('Error connecting to server');
             }
         });
+        function toggleMenu() {
+        document.getElementById('slide-menu').classList.toggle('is-active');
+        document.getElementById('menu-overlay').classList.toggle('is-active');
+    }
     </script>
 
     </body>
+    
 
 </html>
